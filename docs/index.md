@@ -1,17 +1,5 @@
-# Welcome to MkDocs
+# 欢迎来到项小羽的学习与科研
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+这里主要记录项小羽的学习和科研经历, 科研可能以项目为主, 学习以领域的例子为主, 还附带了其他的一些工具的使用和别的内容。如果内容写的还可以的话也可以push我去发B站视频(doge)。
 
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+快! push我

@@ -1,4 +1,11 @@
 site_name: 项小羽的学习与科研
 theme:
   name: material
+  features:
+    - navigation.tabs
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.superfences
+
 
