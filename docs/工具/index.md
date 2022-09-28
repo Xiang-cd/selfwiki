@@ -9,5 +9,5 @@
 | marginnote         | 读文献神器, 自动翻译, OCR, 脑图构建, 思路清晰, 告别手写笔记 |
 | Hammerspoon        | mac自动化脚本, 非常强大, 我也只用了一点边角                 |
 | Karabiner-Elements | 键盘改键神器, 自定义你的快捷键                              |
-|                    |                                                             |
+| Vscode             | 其实我也不是vscode的深度用户, 但我可以分享几个有用的插件    |
 
