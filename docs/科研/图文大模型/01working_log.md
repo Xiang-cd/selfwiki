@@ -19,3 +19,11 @@
 1. DDPM
 2. Improved DDPM
 3. Stablediffusion
+
+
+
+## 2022年10月13日
+
+过了个国庆, 然后就没怎么做科研的工作, 现在在隔离, 然后最近注意到之前关注的一篇文章有人给复现出来了, 所以打算深入的看一下。这篇文章的名字叫“Prompt-to-Prompt Image Editing with Cross Attention Control”。
+
+具体的代码操作和研究过程另外加一个section吧。
