@@ -21,7 +21,7 @@ jupyter-notebook --no-browser --port=1234 # on server
 ssh -NL localhost:1234:localhost:1234 g5 # on your pc, then open link in server jupyter, notice port need to be your host port
 ```
 
-
+跑是能跑的, 不断按shift + enter, 除了模型下载慢一点, 其他都可以。
 
 ### 粗读代码
 
@@ -43,6 +43,7 @@ clip = clip_model.text_model
 auth_token = "这个是hugging face 的access token" #Replace this with huggingface auth token as a string if model is not already downloaded
 model_path_diffusion = "CompVis/stable-diffusion-v1-4"
 # 看起来stable diffusion用的diffusion model就是这一个, 但是对于模型参数而言, 不知道他到底下载的是参数的那一部分, 而且用了半精度
+# 代码在这里 https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/unet_2d_condition.py
 unet = UNet2DConditionModel.from_pretrained(model_path_diffusion, subfolder="unet", use_auth_token=auth_token, revision="fp16", torch_dtype=torch.float16)
 # 这看起来就是stable diffusion用的vae
 vae = AutoencoderKL.from_pretrained(model_path_diffusion, subfolder="vae", use_auth_token=auth_token, revision="fp16", torch_dtype=torch.float16)
@@ -116,11 +117,12 @@ def init_attention_edit(tokens, tokens_edit):
             module.last_attn_slice_mask = None
             module.last_attn_slice_indices = None
 
-
+# TODO 弄清last_attn_slice是什么, sliced_attention, attention两个函数的区别
 def init_attention_func():
     #ORIGINAL SOURCE CODE: https://github.com/huggingface/diffusers/blob/91ddd2a25b848df0fa1262d4f1cd98c7ccb87750/src/diffusers/models/attention.py#L276
     def new_attention(self, query, key, value):
         # TODO: use baddbmm for better performance
+        # query 和 key 通过矩阵乘, 再通过softmax得到attention map
         attention_scores = torch.matmul(query, key.transpose(-1, -2)) * self.scale
         attn_slice = attention_scores.softmax(dim=-1)
         # compute attention output
@@ -133,7 +135,8 @@ def init_attention_func():
                 attn_slice = self.last_attn_slice
 
             self.use_last_attn_slice = False
-
+				
+        # 这一步是在进行edit之前的执行的一次使用原始prompt进行forward，然后保存attn map
         if self.save_last_attn_slice:
             self.last_attn_slice = attn_slice
             self.save_last_attn_slice = False
@@ -142,6 +145,7 @@ def init_attention_func():
             attn_slice = attn_slice * self.last_attn_slice_weights
             self.use_last_attn_weights = False
         
+        # 如果没有injection, 则直接再矩阵乘value, 就得到了下一层的输出
         hidden_states = torch.matmul(attn_slice, value)
         # reshape hidden_states
         hidden_states = self.reshape_batch_dim_to_heads(hidden_states)
@@ -236,6 +240,7 @@ def save_last_self_attention(save=True):
 这里我们需要看一下unet中的CrossAttention是如何定义的, 有哪些方法, 以及具体的运算逻辑时怎么样的。
 
 ```python
+# https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/unet_2d_condition.py
 class CrossAttention(nn.Module):
     r"""
     A cross attention layer.
@@ -415,6 +420,7 @@ def stablediffusion(prompt="", prompt_edit=None, prompt_edit_token_weights=[], p
             latent_model_input = scheduler.scale_model_input(latent_model_input, t)
 
             #Predict the unconditional noise residual
+            # 这里是为了使用classifier free guidance
             noise_pred_uncond = unet(latent_model_input, t, encoder_hidden_states=embedding_unconditional).sample
             
             #Prepare the Cross-Attention layers
@@ -448,6 +454,7 @@ def stablediffusion(prompt="", prompt_edit=None, prompt_edit_token_weights=[], p
             latent = scheduler.step(noise_pred, t_index, latent).prev_sample
 
         #scale and decode the image latents with vae
+        # TODO 0.18215 这个数字是怎么来的呢
         latent = latent / 0.18215
         image = vae.decode(latent.to(vae.dtype)).sample
 
@@ -460,3 +467,267 @@ def stablediffusion(prompt="", prompt_edit=None, prompt_edit_token_weights=[], p
 
 
 
+
+
+
+
+## 需要关注的问题
+
+- 弄清last_attn_slice是什么, sliced_attention, attention两个函数的区别
+- 弄清楚VAE的原理, 弄清楚attention map中的位置是否体现出原图中的空域信息
+- 弄清楚attention有几层,  每个层的attention层的变化情况, 以及哪些层是重要的
+
+
+
+
+
+话不多说, 直接写代码来解决问题。
+
+```python
+for name, module in unet.named_modules():
+        module_name = type(module).__name__
+        if module_name == "CrossAttention":
+            if "attn2" in name:
+                attn2_layers += 1
+            attn_layers += 1
+            module.last_attn_slice = None
+            module.use_last_attn_slice = False
+            module.use_last_attn_weights = False
+            module.save_last_attn_slice = False
+            module._sliced_attention = new_sliced_attention.__get__(module, type(module))
+            module._attention = new_attention.__get__(module, type(module))
+    print("attn layers:", attn_layers)
+    print("atten2 layers:", attn2_layers)
+```
+
+输出:
+
+```
+attn layers: 32
+atten2 layers: 16
+根据后续的输出, 可知attn1和attn2是交替出现的
+```
+
+同时查看query, key, value的维度参数, 我们可以注意到这是`selfAttention` 以及 `crossAttention`, 交替使用, 这也印证了代码中需要区分attn1以及attn2, 这也是为什么主要inject的是attn2的layer, 而不是attn1。
+
+```
+attn1  query.shape torch.Size([8, 4096, 40]) 
+key.shape torch.Size([8, 4096, 40]) 
+value.shape torch.Size([8, 4096, 40])
+1 origin attn map: torch.Size([8, 4096, 4096])
+new attn map: torch.Size([8, 4096, 4096])
+
+attn2  query.shape torch.Size([8, 4096, 40]) 
+key.shape torch.Size([8, 77, 40]) 
+value.shape torch.Size([8, 77, 40])
+2 origin attn map: torch.Size([8, 4096, 77])
+new attn map: torch.Size([8, 4096, 77])
+
+attn1  query.shape torch.Size([8, 4096, 40]) 
+key.shape torch.Size([8, 4096, 40]) 
+value.shape torch.Size([8, 4096, 40])
+3 origin attn map: torch.Size([8, 4096, 4096])
+new attn map: torch.Size([8, 4096, 4096])
+
+attn2  query.shape torch.Size([8, 4096, 40]) 
+key.shape torch.Size([8, 77, 40]) 
+value.shape torch.Size([8, 77, 40])
+4 origin attn map: torch.Size([8, 4096, 77])
+new attn map: torch.Size([8, 4096, 77])
+
+attn1  query.shape torch.Size([8, 1024, 80]) 
+key.shape torch.Size([8, 1024, 80]) 
+value.shape torch.Size([8, 1024, 80])
+5 origin attn map: torch.Size([8, 1024, 1024])
+new attn map: torch.Size([8, 1024, 1024])
+
+attn2  query.shape torch.Size([8, 1024, 80]) 
+key.shape torch.Size([8, 77, 80]) 
+value.shape torch.Size([8, 77, 80])
+6 origin attn map: torch.Size([8, 1024, 77])
+new attn map: torch.Size([8, 1024, 77])
+
+attn1  query.shape torch.Size([8, 1024, 80]) 
+key.shape torch.Size([8, 1024, 80]) 
+value.shape torch.Size([8, 1024, 80])
+7 origin attn map: torch.Size([8, 1024, 1024])
+new attn map: torch.Size([8, 1024, 1024])
+
+attn2  query.shape torch.Size([8, 1024, 80]) 
+key.shape torch.Size([8, 77, 80]) 
+value.shape torch.Size([8, 77, 80])
+8 origin attn map: torch.Size([8, 1024, 77])
+new attn map: torch.Size([8, 1024, 77])
+
+attn1  query.shape torch.Size([8, 256, 160]) 
+key.shape torch.Size([8, 256, 160]) 
+value.shape torch.Size([8, 256, 160])
+9 origin attn map: torch.Size([8, 256, 256])
+new attn map: torch.Size([8, 256, 256])
+
+attn2  query.shape torch.Size([8, 256, 160]) 
+key.shape torch.Size([8, 77, 160]) 
+value.shape torch.Size([8, 77, 160])
+10 origin attn map: torch.Size([8, 256, 77])
+new attn map: torch.Size([8, 256, 77])
+
+attn1  query.shape torch.Size([8, 256, 160]) 
+key.shape torch.Size([8, 256, 160]) 
+value.shape torch.Size([8, 256, 160])
+11 origin attn map: torch.Size([8, 256, 256])
+new attn map: torch.Size([8, 256, 256])
+
+attn2  query.shape torch.Size([8, 256, 160]) 
+key.shape torch.Size([8, 77, 160]) 
+value.shape torch.Size([8, 77, 160])
+12 origin attn map: torch.Size([8, 256, 77])
+new attn map: torch.Size([8, 256, 77])
+
+attn1  query.shape torch.Size([8, 64, 160]) 
+key.shape torch.Size([8, 64, 160]) 
+value.shape torch.Size([8, 64, 160])
+31 origin attn map: torch.Size([8, 64, 64])
+new attn map: torch.Size([8, 64, 64])
+
+attn2  query.shape torch.Size([8, 64, 160]) 
+key.shape torch.Size([8, 77, 160]) 
+value.shape torch.Size([8, 77, 160])
+32 origin attn map: torch.Size([8, 64, 77])
+new attn map: torch.Size([8, 64, 77])
+
+attn1  query.shape torch.Size([8, 256, 160]) 
+key.shape torch.Size([8, 256, 160]) 
+value.shape torch.Size([8, 256, 160])
+13 origin attn map: torch.Size([8, 256, 256])
+new attn map: torch.Size([8, 256, 256])
+
+attn2  query.shape torch.Size([8, 256, 160]) 
+key.shape torch.Size([8, 77, 160]) 
+value.shape torch.Size([8, 77, 160])
+14 origin attn map: torch.Size([8, 256, 77])
+new attn map: torch.Size([8, 256, 77])
+
+attn1  query.shape torch.Size([8, 256, 160]) 
+key.shape torch.Size([8, 256, 160]) 
+value.shape torch.Size([8, 256, 160])
+15 origin attn map: torch.Size([8, 256, 256])
+new attn map: torch.Size([8, 256, 256])
+
+attn2  query.shape torch.Size([8, 256, 160]) 
+key.shape torch.Size([8, 77, 160]) 
+value.shape torch.Size([8, 77, 160])
+16 origin attn map: torch.Size([8, 256, 77])
+new attn map: torch.Size([8, 256, 77])
+
+attn1  query.shape torch.Size([8, 256, 160]) 
+key.shape torch.Size([8, 256, 160]) 
+value.shape torch.Size([8, 256, 160])
+17 origin attn map: torch.Size([8, 256, 256])
+new attn map: torch.Size([8, 256, 256])
+
+attn2  query.shape torch.Size([8, 256, 160]) 
+key.shape torch.Size([8, 77, 160]) 
+value.shape torch.Size([8, 77, 160])
+18 origin attn map: torch.Size([8, 256, 77])
+new attn map: torch.Size([8, 256, 77])
+
+attn1  query.shape torch.Size([8, 1024, 80]) 
+key.shape torch.Size([8, 1024, 80]) 
+value.shape torch.Size([8, 1024, 80])
+19 origin attn map: torch.Size([8, 1024, 1024])
+new attn map: torch.Size([8, 1024, 1024])
+
+attn2  query.shape torch.Size([8, 1024, 80]) 
+key.shape torch.Size([8, 77, 80]) 
+value.shape torch.Size([8, 77, 80])
+20 origin attn map: torch.Size([8, 1024, 77])
+new attn map: torch.Size([8, 1024, 77])
+
+attn1  query.shape torch.Size([8, 1024, 80]) 
+key.shape torch.Size([8, 1024, 80]) 
+value.shape torch.Size([8, 1024, 80])
+21 origin attn map: torch.Size([8, 1024, 1024])
+new attn map: torch.Size([8, 1024, 1024])
+
+attn2  query.shape torch.Size([8, 1024, 80]) 
+key.shape torch.Size([8, 77, 80]) 
+value.shape torch.Size([8, 77, 80])
+22 origin attn map: torch.Size([8, 1024, 77])
+new attn map: torch.Size([8, 1024, 77])
+
+attn1  query.shape torch.Size([8, 1024, 80]) 
+key.shape torch.Size([8, 1024, 80]) 
+value.shape torch.Size([8, 1024, 80])
+23 origin attn map: torch.Size([8, 1024, 1024])
+new attn map: torch.Size([8, 1024, 1024])
+
+attn2  query.shape torch.Size([8, 1024, 80]) 
+key.shape torch.Size([8, 77, 80]) 
+value.shape torch.Size([8, 77, 80])
+24 origin attn map: torch.Size([8, 1024, 77])
+new attn map: torch.Size([8, 1024, 77])
+
+attn1  query.shape torch.Size([8, 4096, 40]) 
+key.shape torch.Size([8, 4096, 40]) 
+value.shape torch.Size([8, 4096, 40])
+25 origin attn map: torch.Size([8, 4096, 4096])
+new attn map: torch.Size([8, 4096, 4096])
+
+attn2  query.shape torch.Size([8, 4096, 40]) 
+key.shape torch.Size([8, 77, 40]) 
+value.shape torch.Size([8, 77, 40])
+26 origin attn map: torch.Size([8, 4096, 77])
+new attn map: torch.Size([8, 4096, 77])
+2
+attn1  query.shape torch.Size([8, 4096, 40]) 
+key.shape torch.Size([8, 4096, 40]) 
+value.shape torch.Size([8, 4096, 40])
+27 origin attn map: torch.Size([8, 4096, 4096])
+new attn map: torch.Size([8, 4096, 4096])
+
+attn2  query.shape torch.Size([8, 4096, 40]) 
+key.shape torch.Size([8, 77, 40]) 
+value.shape torch.Size([8, 77, 40])
+28 origin attn map: torch.Size([8, 4096, 77])
+new attn map: torch.Size([8, 4096, 77])
+
+attn1  query.shape torch.Size([8, 4096, 40]) 
+key.shape torch.Size([8, 4096, 40]) 
+value.shape torch.Size([8, 4096, 40])
+29 origin attn map: torch.Size([8, 4096, 4096])
+new attn map: torch.Size([8, 4096, 4096])
+
+attn2  query.shape torch.Size([8, 4096, 40]) 
+key.shape torch.Size([8, 77, 40]) 
+value.shape torch.Size([8, 77, 40])
+30 origin attn map: torch.Size([8, 4096, 77])
+new attn map: torch.Size([8, 4096, 77])
+```
+
+
+
+
+
+
+
+## 注意到的问题
+
+### 其实生成控制没有很理想
+
+我们注意到代码中给的样例看起来不错, 但是稍微添加一些修改, 就会出现一些问题, 当然这任然需要再回头看一下论文并进行修改。
+
+例如, 原来的实现中, 使用的原条件生成`“a cat sitting on a car”,    seed=248396402679`, 得到如下图片:
+
+![image-20221019113709789](./prompt-to-prompt.assets/image-20221019113709789.png)
+
+attention inject的方式, 参数为`"a cat sitting on a car", "a smiling dog sitting on a car", prompt_edit_spatial_start=0.7, seed=248396402679` 则如下图:
+
+![image-20221019113909102](./prompt-to-prompt.assets/image-20221019113909102.png)
+
+如果将参数改变为`"a cat sitting on a car", "a dog sitting on a car", prompt_edit_spatial_start=0.7,seed=248396402679,steps=50`, 则得到如下图片, 比较恐怖:
+
+![image-20221019114052787](./prompt-to-prompt.assets/image-20221019114052787.png)
+
+
+
+value, map不同组合, 抛弃selfattention , new_sliced_attention , seq compare
