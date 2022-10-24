@@ -2,6 +2,8 @@
 
 
 
+- [toc]
+
 ## 前言
 
 这一部分主要是聚焦研究在diffusion model生成的过程中Attention map是如何起作用的, 可以用什么样的方法更好的利用attentionmap来控制模型的生成。这个部分最主要的启发工作来源于google的“Prompt-to-Prompt Image Editing with Cross Attention Control”, 也是我们希望复现和学习的文章。
@@ -129,7 +131,7 @@ def init_attention_func():
         
         if self.use_last_attn_slice:
             if self.last_attn_slice_mask is not None:
-                new_attn_slice = torch.index_select(self.last_attn_slice, -1, self.last_attn_slice_indices)
+                new_attn_slice = torch.index_select(self.last_attn_slice, -1, self.last_attn_slice_indices) # 在单词维度进行选择
                 attn_slice = attn_slice * (1 - self.last_attn_slice_mask) + new_attn_slice * self.last_attn_slice_mask
             else:
                 attn_slice = self.last_attn_slice
@@ -479,7 +481,7 @@ def stablediffusion(prompt="", prompt_edit=None, prompt_edit_token_weights=[], p
 
 
 
-
+### attention 的层数, 分布
 
 话不多说, 直接写代码来解决问题。
 
@@ -508,7 +510,7 @@ atten2 layers: 16
 根据后续的输出, 可知attn1和attn2是交替出现的
 ```
 
-同时查看query, key, value的维度参数, 我们可以注意到这是`selfAttention` 以及 `crossAttention`, 交替使用, 这也印证了代码中需要区分attn1以及attn2, 这也是为什么主要inject的是attn2的layer, 而不是attn1。
+同时查看query, key, value的维度参数, 我们可以注意到这是`selfAttention` 以及 `crossAttention`, 交替使用, 这也印证了代码中需要区分attn1以及attn2, 这也是为什么主要inject的是attn2的layer, 而不是attn1, 其次可以通过attention map的维度看出, 模型呈现中间attention map小, 两端的attention map大的特点, 这也就是unet的架构。
 
 ```
 attn1  query.shape torch.Size([8, 4096, 40]) 
@@ -708,6 +710,369 @@ new attn map: torch.Size([8, 4096, 77])
 
 
 
+### sequence matcher到底在做什么?
+
+我们先简单print一下中间变量, 看一下结果:
+
+```python
+def init_attention_edit(tokens, tokens_edit):
+    tokens_length = clip_tokenizer.model_max_length
+    mask = torch.zeros(tokens_length)
+    indices_target = torch.arange(tokens_length, dtype=torch.long)
+    indices = torch.zeros(tokens_length, dtype=torch.long)
+
+    tokens = tokens.input_ids.numpy()[0]
+    tokens_edit = tokens_edit.input_ids.numpy()[0]
+    if Debug:
+        print("init mask:", mask[:Debug_token_len])
+        print(tokens[:Debug_token_len], tokens_edit[:Debug_token_len], sep="\n")
+    for name, a0, a1, b0, b1 in SequenceMatcher(None, tokens, tokens_edit).get_opcodes():
+        if Debug:
+            print("name:", name, "\na0:",a0, "a1:", a1, "\nb0:", b0, "b1:", b1)
+        if b0 < tokens_length:
+            if name == "equal" or (name == "replace" and a1-a0 == b1-b0):
+                mask[b0:b1] = 1
+                indices[b0:b1] = indices_target[a0:a1]
+    if Debug:
+        print("final mask:", mask[:Debug_token_len])
+        print("final indices:", indices[:Debug_token_len])
+        
+
+    for name, module in unet.named_modules():
+        module_name = type(module).__name__
+        if module_name == "CrossAttention" and "attn2" in name: # 对于crossAttention而言, 需要mask以及indices
+            module.last_attn_slice_mask = mask.to(device)
+            module.last_attn_slice_indices = indices.to(device)
+        if module_name == "CrossAttention" and "attn1" in name:
+            module.last_attn_slice_mask = None
+            module.last_attn_slice_indices = None
+```
+
+看一下output:
+
+```shell
+stablediffusion("a cat sitting on a car", "a smiling dog sitting on a car",  prompt_edit_spatial_start=0.7, seed=248396402679)
+-------
+init mask: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+[49406   320  {2368}  4919   525   320  1615 49407 49407 49407 49407 49407
+ 49407 49407 49407]
+[49406   320  {9200  1929}  4919   525   320  1615 49407 49407 49407 49407
+ 49407 49407 49407]
+name: equal 
+a0: 0 a1: 2 
+b0: 0 b1: 2
+name: replace 
+a0: 2 a1: 3 
+b0: 2 b1: 4
+name: equal 
+a0: 3 a1: 76 
+b0: 4 b1: 77
+name: delete 
+a0: 76 a1: 77 
+b0: 77 b1: 77
+final mask: tensor([1., 1., 0., 0., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
+final indices: tensor([ 0,  1,  0,  0,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13])
+# mask 为1的部分, 使用origin的attention map, mask为0的部分使用edit的attention map
+# 至于来自origin的attention map来自那个word_index, 以及要放到哪个word_index, 则由 indices进行选择。
+```
+
+mask和indices有什么用呢, 主要用在这里:
+
+在我们修改句子或者替换attention map时, 我们期望相同的单词计算出的attention map是对应的, 也就是说如果严格按照单词顺序来对应attention map, 那么"a smiling dog sitting on a car"中的sitting对应的attention map会被替换为a对应的attention map, 但是对应的value没有改变, 这就导致了attention map的错位, 导致最后生成的语义信息不好。
+
+如果不适用indices, 而直接采用按序替换所有attention map的方式, 同样的条件得到如下的图片。
+
+![WeChat816a8104fc1490fcf78081f0ae64a22c](./prompt-to-prompt.assets/WeChat816a8104fc1490fcf78081f0ae64a22c.png)
+
+
+
+### 各个参数控制原理
+
+```python
+stable(prompt="", # 原始生成过程
+prompt_edit=None, # 后续修改的语句
+prompt_edit_token_weights=[],  # 一个token位置以及权重组成的tuple的列表, 在使用attention map时, 会进行一个reweight, 默认都为1
+prompt_edit_tokens_start=0.0, # 在处于 edit_tokens_start 和end 之间的迭代会将crossattention map 进行替换
+prompt_edit_tokens_end=1.0, 
+prompt_edit_spatial_start=0.0, # 在处于edit_spatial_start 和end之间的迭代会进行selfattention map的替换
+prompt_edit_spatial_end=1.0, 
+guidance_scale=7.5,  # CFG的乘数
+steps=50, # 迭代轮数
+seed=None, # seed, readme中说seed相同才可以进行修改?
+width=512, 
+height=512, 
+init_image=None, # 初始化的图片
+init_image_strength=0.5) # 初始化的强度
+
+# 这里需要注意的一个地方在于, 生成控制的顺序是从1到0的小数点, 控制的开始和结束貌似相反了
+if prompt_edit is not None:
+  t_scale = t / scheduler.num_train_timesteps
+  print(t_scale)
+  if t_scale >= prompt_edit_tokens_start and t_scale <= prompt_edit_tokens_end:
+    use_last_tokens_attention()
+	if t_scale >= prompt_edit_spatial_start and t_scale <= prompt_edit_spatial_end:
+     use_last_self_attention()
+"""
+这里得到的输出是:
+tensor(0.9990, dtype=torch.float64)
+tensor(0.9786, dtype=torch.float64)
+tensor(0.9582, dtype=torch.float64)
+tensor(0.9378, dtype=torch.float64)
+tensor(0.9174, dtype=torch.float64)
+tensor(0.8971, dtype=torch.float64)
+tensor(0.8767, dtype=torch.float64)
+tensor(0.8563, dtype=torch.float64)
+tensor(0.8359, dtype=torch.float64)
+tensor(0.8155, dtype=torch.float64)
+tensor(0.7951, dtype=torch.float64)
+tensor(0.7747, dtype=torch.float64)
+tensor(0.7543, dtype=torch.float64)
+tensor(0.7340, dtype=torch.float64)
+tensor(0.7136, dtype=torch.float64)
+"""
+```
+
+
+
+### sliced_attention在做什么?
+
+貌似真的没调用....
+
+
+
+
+
+### 算法是不是有问题?
+
+![image-20221024121624185](./prompt-to-prompt.assets/image-20221024121624185.png) 
+
+注意到, 这个不带星的z过程中, 从始至终都存在一个完成的生成链, 也就是最后的z0, 就是原始生成的图片, 而z\*是edit后的图片。而我们目前跑的代码的实现是, zt 和 zt\*在取两个Mt的过程中是共享的, 也就是说, 这里的第六行变为$$z_{t-1}, M_{t} \leftarrow DM(z_{t}^{*}, P, t, s)$$, 而$$z_{t-1}$$是被完整抛弃的。
+
+为了这一点, 我们必须再改代码来验证, 这和condition的改变是有关系的, 具体的部分见“image condition的不同组合”
+
+
+
+
+
+## attention map 到底如何起作用?
+
+### 前提提要
+
+我们注意到, seed也可能是决定图片布局的一个因素。我们举个例子:
+
+###### seed case1
+
+`seed=248396402679, steps=50`
+
+| a cat sitting on a car                                       | a smiling dog sitting on a car                               |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![image-20221022112218153](./prompt-to-prompt.assets/image-20221022112218153.png) | ![image-20221022112240664](./prompt-to-prompt.assets/image-20221022112240664.png) |
+| a dog sitting on a car                                       | a hamster sitting on a car                                   |
+| ![image-20221022112302069](./prompt-to-prompt.assets/image-20221022112302069.png) | ![image-20221022112320448](./prompt-to-prompt.assets/image-20221022112320448.png) |
+| a tiger sitting on a car                                     | a lion sitting on a car                                      |
+| ![image-20221022112341613](./prompt-to-prompt.assets/image-20221022112341613.png) | ![image-20221022112457166](./prompt-to-prompt.assets/image-20221022112457166.png) |
+
+
+
+我们期望寻找一个seed, 使得不同的prompt得到的图片布局有比价明显的不一致性, 这样才能更加充分体现我们使用attention map进行编辑的用处。
+
+###### seed case2
+
+`seed = 24839640267, steps=50`
+
+| a cat sitting on a car                                       | a smiling dog sitting on a car                               |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![image-20221022112841882](./prompt-to-prompt.assets/image-20221022112841882.png) | ![image-20221022112922883](./prompt-to-prompt.assets/image-20221022112922883.png) |
+| a dog sitting on a car                                       | a hamster sitting on a car                                   |
+| ![image-20221022112945353](./prompt-to-prompt.assets/image-20221022112945353.png) | ![image-20221022113013842](./prompt-to-prompt.assets/image-20221022113013842.png) |
+| a tiger sitting on a car                                     | a lion sitting on a car                                      |
+| ![image-20221022113141509](./prompt-to-prompt.assets/image-20221022113141509.png) | ![image-20221022113038301](./prompt-to-prompt.assets/image-20221022113038301.png) |
+
+
+
+
+
+
+
+#### crossattention是否有用? selfattention 是否有用?
+
+###### cat-tiger
+
+`origin:cat, new:tiger`  , `right to left: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0`  , 越上面CrossAttention 持续的越久, 越左边, selfAttention持续的越久
+
+| ![image-20221022112841882](./prompt-to-prompt.assets/image-20221022112841882.png) | ![image-20221022113141509](./prompt-to-prompt.assets/image-20221022113141509.png) |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+图中可以看出， **attention map对于空域控制确实是有作用的**，而将value替换为老虎的value同时也导致背后车变为车，这也有可能和attention map的扩散有关，即老虎的attention map权重大的空域并不全程在老虎身上。
+
+![cat-tiger](./prompt-to-prompt.assets/cat-tiger.jpg)
+
+
+
+###### dog-hamster
+
+`origin:dog, new:hamster`  , `left to right: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0` 
+
+| ![image-20221022112945353](./prompt-to-prompt.assets/image-20221022112945353.png) | ![image-20221022113013842](./prompt-to-prompt.assets/image-20221022113013842.png) |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+
+
+左上角, 空域控制过强, 导致无法生成老鼠的形态, 注意到最后一行, 此时crossAttention并无inject, 仅仅selfAttention inject, 此时空域限制就不是很强。有比较好的效果, 但是却和文章中的selfAttention不够搭边了, 最后一步突然跳到原图, 也是有些匪夷所思, 需要再细致分析。
+
+![dog-hamster](./prompt-to-prompt.assets/dog-hamster.jpg)
+
+
+
+###### dog-hamster-detail
+
+`left to right ss=0.6-1.0, up to down cs=0.6-1.0 ce=se=1`
+
+![dog-hamster-detail](./prompt-to-prompt.assets/dog-hamster-detail.jpg)
+
+
+
+###### hamster-dog
+
+`origin:hamster, new:dog`  , `right to left: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0` 
+
+这里还是体现出了空域控制很强的效果, 导致狗的毛发成色都和老鼠比较相近。注意到最右边的列, 此时只有crossAttention inject, 没有selfAttention inject, 大幅度的inject范围改变都没有对构图和风格有明显变化, 这也值得思考。最后一行的行为也非常奇怪。
+
+![hamster-dog](./prompt-to-prompt.assets/hamster-dog.jpg)
+
+
+
+###### hamster-dog-detail
+
+0.6-1.0, 注意到**初始的inject对构图的变化程度还是比较明显**的, 例如出现了戴眼镜狗的图片。
+
+![hamster-dog-detail](./prompt-to-prompt.assets/hamster-dog-detail.jpg)
+
+
+
+###### dog-smiling
+
+`origin:dog, new:smiling dog`  , `right to left: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0` 
+
+| ![image-20221022112945353](./prompt-to-prompt.assets/image-20221022112945353.png) | ![image-20221022112922883](./prompt-to-prompt.assets/image-20221022112922883.png) |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+![dog-smiling dog](./prompt-to-prompt.assets/dog-smiling dog.jpg)
+
+
+
+###### dog-smiling-detail
+
+`right to left: ss0.6 to ss1.0, up to down: cs0.6 to cs1.0` 
+
+![dog-smiling dog-detail](./prompt-to-prompt.assets/dog-smiling dog-detail.jpg)
+
+
+
+###### dog-smiling-end
+
+这里说明了, 前期是定结构位置的关键期, 前期一定, 后续再改比较麻烦, 当然, 这也是因为这里代码实现的Attention map是依赖于前一个latent的input的, 而不是独立的。
+
+`right to left: ce0.6 to ce1.0, up to down: se0.6 to se1.0, ss=cs=0.3`
+
+![dog-smiling dog-end](./prompt-to-prompt.assets/dog-smiling dog-end.jpg) 
+
+
+
+
+
+#### cake 实验
+
+
+
+![lemon cake](./prompt-to-prompt.assets/lemon cake.png)
+
+
+
+###### cake
+
+`ss0.7, cs0.7, se=ce=1`
+
+| apple | cheese | chocolate | jello | lego | matcha | pistachio | pumpkin |
+| ----- | ------ | --------- | ----- | ---- | ------ | --------- | ------- |
+| 苹果  | 芝士   | 巧克力    | 果冻  | 乐高 | 抹茶   | 开心果    | 南瓜    |
+
+![origin-cakes](./prompt-to-prompt.assets/origin-cakes-6517914.jpg)
+
+![inject-cakes](./prompt-to-prompt.assets/inject-cakes-6525536.jpg)
+
+
+
+###### lemon-cheese
+
+`ss0.0-1.0  cs0.0-1.0 lemon cheese`
+
+![lemon cake-cheese cake](./prompt-to-prompt.assets/lemon cake-cheese cake.jpg)
+
+
+
+###### lemon-pistachio
+
+`ss0.7-1.0, cs0.7-1.0 lemon pistachio`
+
+![lemon cake-pistachio cake-detail](./prompt-to-prompt.assets/lemon cake-pistachio cake-detail.jpg)
+
+
+
+#### value, map不同组合
+
+以上的矩阵就体现出了value, map的不同组合, 有一定的趋势可以证明map控制位置, value控制内容, 但这还需要image condition的验证。
+
+
+
+#### image condition的不同组合
+
+这里其实就是指并行inject, 同时也解释了算法是否有问题的问题。
+
+
+
+
+
+#### 打印所有的生成过程以及attention map
+
+
+
+
+
+#### 手动inject
+
+实验方法,  选定图片的一块方形区域, 然后在Attention map这个区域中使得该部分的权重增加, 增加方式还有待尝试。
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 结论
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## 注意到的问题
@@ -731,3 +1096,4 @@ attention inject的方式, 参数为`"a cat sitting on a car", "a smiling dog si
 
 
 value, map不同组合, 抛弃selfattention , new_sliced_attention , seq compare
+
