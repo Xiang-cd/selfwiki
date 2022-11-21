@@ -10,6 +10,28 @@
 
 
 
+![image-20221101183150181](./prompt-to-prompt.assets/image-20221101183150181.png)
+
+
+
+
+
+## 标记说明
+
+#### Cross Attention map的替换从prompt_edit_tokens_end开始, 到prompt_edit_tokens_start结束
+
+#### Self Attention map的替换从prompt_edit_spatial_end开始, prompt_edit_spatial_start结束
+
+`ss`是`self Attention inject start`的简称, 也即`prompt_edit_spatial_start`, 而默认的`prompt_edit_tokens_end=1.0`, 生成过程是1.0 -> 0, 所以map inject 从一开始就开始, 到`prompt_edit_spatial_start`结束, 例如生成过程50步, `prompt_edit_spatial_start=0.8`, 这意味着前`50*(1-0.8)=10`步是有map inject, 后续则没有。如果`prompt_edit_spatial_start=prompt_edit_spatial_end=0`, 则全称无inject, 生成src原图, 即图片矩阵最右下角的图片。
+
+`cs`是`cross Attention inject start`的简称, 也即`prompt_edit_tokens_start`, 作用机制同理。
+
+`ce`是`corss Attention inject end`的简称, 也即`prompt_edit_tokens_end`。
+
+`se`是`self Attention inject end`的简称, 也即`prompt_edit_spatial_end`。
+
+
+
 ## 复现和熟悉过程
 
 之前在github上看到了有人对google的这篇文章进行了复现, 在这里进行尝试, 复现他的结果, 然后研究一下他是怎么做, 以及我们可以怎么做吧。直接上代码。
@@ -834,6 +856,10 @@ tensor(0.7136, dtype=torch.float64)
 
 
 
+
+
+
+
 ### sliced_attention在做什么?
 
 貌似真的没调用....
@@ -848,7 +874,9 @@ tensor(0.7136, dtype=torch.float64)
 
 注意到, 这个不带星的z过程中, 从始至终都存在一个完成的生成链, 也就是最后的z0, 就是原始生成的图片, 而z\*是edit后的图片。而我们目前跑的代码的实现是, zt 和 zt\*在取两个Mt的过程中是共享的, 也就是说, 这里的第六行变为$$z_{t-1}, M_{t} \leftarrow DM(z_{t}^{*}, P, t, s)$$, 而$$z_{t-1}$$是被完整抛弃的。
 
-为了这一点, 我们必须再改代码来验证, 这和condition的改变是有关系的, 具体的部分见“image condition的不同组合”
+为了这一点, 我们必须再改代码来验证, 这和condition的改变是有关系的, 具体的部分见“image condition的不同组合。
+
+
 
 
 
@@ -898,7 +926,7 @@ tensor(0.7136, dtype=torch.float64)
 
 ###### cat-tiger
 
-`origin:cat, new:tiger`  , `right to left: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0`  , 越上面CrossAttention 持续的越久, 越左边, selfAttention持续的越久
+`origin:cat, new:tiger`  , `left to right: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0`  , 越上面CrossAttention 持续的越久, 越左边, selfAttention持续的越久
 
 | ![image-20221022112841882](./prompt-to-prompt.assets/image-20221022112841882.png) | ![image-20221022113141509](./prompt-to-prompt.assets/image-20221022113141509.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -934,7 +962,7 @@ tensor(0.7136, dtype=torch.float64)
 
 ###### hamster-dog
 
-`origin:hamster, new:dog`  , `right to left: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0` 
+`origin:hamster, new:dog`  , `left to right: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0` 
 
 这里还是体现出了空域控制很强的效果, 导致狗的毛发成色都和老鼠比较相近。注意到最右边的列, 此时只有crossAttention inject, 没有selfAttention inject, 大幅度的inject范围改变都没有对构图和风格有明显变化, 这也值得思考。最后一行的行为也非常奇怪。
 
@@ -952,7 +980,7 @@ tensor(0.7136, dtype=torch.float64)
 
 ###### dog-smiling
 
-`origin:dog, new:smiling dog`  , `right to left: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0` 
+`origin:dog, new:smiling dog`  , `left to right: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0` 
 
 | ![image-20221022112945353](./prompt-to-prompt.assets/image-20221022112945353.png) | ![image-20221022112922883](./prompt-to-prompt.assets/image-20221022112922883.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -963,7 +991,7 @@ tensor(0.7136, dtype=torch.float64)
 
 ###### dog-smiling-detail
 
-`right to left: ss0.6 to ss1.0, up to down: cs0.6 to cs1.0` 
+`left to right: ss0.6 to ss1.0, up to down: cs0.6 to cs1.0` 
 
 ![dog-smiling dog-detail](./prompt-to-prompt.assets/dog-smiling dog-detail.jpg)
 
@@ -973,7 +1001,7 @@ tensor(0.7136, dtype=torch.float64)
 
 这里说明了, 前期是定结构位置的关键期, 前期一定, 后续再改比较麻烦, 当然, 这也是因为这里代码实现的Attention map是依赖于前一个latent的input的, 而不是独立的。
 
-`right to left: ce0.6 to ce1.0, up to down: se0.6 to se1.0, ss=cs=0.3`
+`left to right: ce0.6 to ce1.0, up to down: se0.6 to se1.0, ss=cs=0.3`
 
 ![dog-smiling dog-end](./prompt-to-prompt.assets/dog-smiling dog-end.jpg) 
 
@@ -1025,24 +1053,83 @@ tensor(0.7136, dtype=torch.float64)
 
 
 
-#### image condition的不同组合
+#### image condition的不同组合(并行inject)
 
 这里其实就是指并行inject, 同时也解释了算法是否有问题的问题。
 
 
 
+###### hamster-dog-self
+
+| ![image-20221022112945353](./prompt-to-prompt.assets/image-20221022112945353.png) | ![image-20221022113013842](./prompt-to-prompt.assets/image-20221022113013842.png) |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 
-#### 打印所有的生成过程以及attention map
+
+`left to right: ss0.0 to ss1.0, up to down: cs0.0 to cs1.0, se=ce=1`
+
+![hamster-dog-self](./prompt-to-prompt.assets/hamster-dog-self.jpg)
+
+
+
+###### margin
+
+![hamster-dog-margin-self](./prompt-to-prompt.assets/hamster-dog-margin-self.jpg)
+
+
+
+###### dog-smiling-self
+
+![dog-smiling-self](./prompt-to-prompt.assets/dog-smiling-self.jpg)
 
 
 
 
 
-#### 手动inject
+###### dog-smiling-self
+
+![dog-smiling-detail-self](./prompt-to-prompt.assets/dog-smiling-detail-self.jpg)
+
+
+
+
+
+#### 打印所有的生成过程以及attention
+
+
+
+
+
+
+
+## 手动inject
+
+
+
+### 方法1
 
 实验方法,  选定图片的一块方形区域, 然后在Attention map这个区域中使得该部分的权重增加, 增加方式还有待尝试。
 
+1. 只inject 64X64的attention map
+2. 绝对inject，mast相加后不做softmax，直接乘value
+
+##### inject scale = 10
+
+这里首先阐明了我们injcet的位置的大致区域， 为暗红色部分。
+
+![image-20221102133158148](./prompt-to-prompt.assets/image-20221102133158148.png)
+
+
+
+##### inject scale=4
+
+![image-20221102133139722](./prompt-to-prompt.assets/image-20221102133139722.png)
+
+
+
+##### inject scale=3
+
+![image-20221102133756441](./prompt-to-prompt.assets/image-20221102133756441.png)
 
 
 
@@ -1050,6 +1137,30 @@ tensor(0.7136, dtype=torch.float64)
 
 
 
+### 值得探索的方向
+
+1. self Attention
+2. 模型结构
+3. dreambooth
+4. 动词
+5. inpainting()
+6. 再过一次归一化(尝试各种方法)
+7. 调稳定一些
+
+
+
+
+
+
+
+
+
+#### 手动inject结论
+
+1. 目前只inject 64X64, inject 32X32 或许效果会更好(已经验证)
+2. inject 的面积未必能够限制生成动物的面积
+3. 有一定的控制作用
+4. 做softmax归一化似乎没有效果, 可能是softmax的维度
 
 
 
@@ -1057,7 +1168,41 @@ tensor(0.7136, dtype=torch.float64)
 
 ## 结论
 
+1. map决定空域, value决定内容基本成立
+2. 以上二者均受到image condition影响
+3. 并行inject 更合理
 
+
+
+t
+
+z4 z3 z2 z1 z0
+
+猫  ...
+
+t*
+
+z4\* z3\*  z2\*  z1\*
+
+狗 ...
+
+
+
+z4  z3  z3end  z2   z2end
+
+​	 z3\*            z2*
+
+
+
+
+
+
+
+#### 问题:
+
+1. dog-smiling 出现了人
+2. 出现像素化
+3. 控制的不是很理想
 
 
 

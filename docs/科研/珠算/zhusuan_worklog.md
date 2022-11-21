@@ -19,6 +19,12 @@ pip install torch
 pip install matplotlib
 ```
 
+或者直接选择
+
+```
+conda install scipy
+```
+
 至此, 可以跑通`python -m unittest discover -v`。
 
 `coverage report --include="zhusuan/*"`报告`No data to report.` 暂时先不管。
@@ -129,3 +135,19 @@ self.q = [v.clone().requires_grad_() for v in latent_v]
 
 ![image1](./zhusuan_worklog.assets/gaussian梯度.png)
 
+
+
+
+
+## 深度de HMC的bug
+
+我们预计是求导的函数计算倒数错误导致了采样的错误, 正确的计算路径应该是根据当前给的varlist, 根据密度函数计算梯度, 但是目前看起来计算的是相加的梯度。
+
+
+
+
+
+## 细查文档
+
+1. 是否要添加conda 安装的命令
+2. 

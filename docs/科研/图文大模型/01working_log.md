@@ -27,3 +27,9 @@
 过了个国庆, 然后就没怎么做科研的工作, 现在在隔离, 然后最近注意到之前关注的一篇文章有人给复现出来了, 所以打算深入的看一下。这篇文章的名字叫“Prompt-to-Prompt Image Editing with Cross Attention Control”。
 
 具体的代码操作和研究过程另外加一个section吧。
+
+
+
+## 2022年10月30日
+
+之前认真跑了一下Prompt-to-Prompt Image Editing with Cross Attention Control的实验, 然后发现效果不是很好, 而且后来发现算法的实现有问题, 然后按照文章的实现又改了一波, 感觉效果又好了一些。然后读了dreambooth的文章, 感觉也不错, 然后也发现有微调的基于stablediffusion的代码, 感觉这个也得认真跑一下, 然后基于参数高效的微调, 可以弄一篇文章。
