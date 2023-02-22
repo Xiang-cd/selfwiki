@@ -1,0 +1,1347 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.3">
+    
+    
+      
+        <title>attention map hand inject - 项小羽的学习与科研</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7a952b86.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#attention-map-hand-inject" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="项小羽的学习与科研" class="md-header__button md-logo" aria-label="项小羽的学习与科研" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            项小羽的学习与科研
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              attention map hand inject
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      欢迎来到项小羽的学习与科研
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%85%B6%E4%BB%96/books/" class="md-tabs__link">
+        其他
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0/%E7%AE%80%E4%BB%8B/" class="md-tabs__link">
+        学习
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%B7%A5%E5%85%B7/" class="md-tabs__link">
+        工具
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BB%8B%E7%BB%8D/" class="md-tabs__link md-tabs__link--active">
+        科研
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="项小羽的学习与科研" class="md-nav__button md-logo" aria-label="项小羽的学习与科研" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    项小羽的学习与科研
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        欢迎来到项小羽的学习与科研
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          其他
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="其他" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          其他
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%85%B6%E4%BB%96/books/" class="md-nav__link">
+        推荐几本书?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%85%B6%E4%BB%96/music/" class="md-nav__link">
+        好歌推荐
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%85%B6%E4%BB%96/website/" class="md-nav__link">
+        在这里分享一些有用的网址
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="学习" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          学习
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0/%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        一个简单的简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          超算
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="超算" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          超算
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0/%E8%B6%85%E7%AE%97/ASC22/" class="md-nav__link">
+        ASC22
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0/%E8%B6%85%E7%AE%97/IPCC22/" class="md-nav__link">
+        IPCC2022
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0/%E8%B6%85%E7%AE%97/ISC23/" class="md-nav__link">
+        ISC23
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          工具
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="工具" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          工具
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B7%A5%E5%85%B7/teach%20you%20mac/" class="md-nav__link">
+        项小羽试图教你用mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B7%A5%E5%85%B7/vscode/" class="md-nav__link">
+        Vscode配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B7%A5%E5%85%B7/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" class="md-nav__link">
+        如何跨越长城
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          科研
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="科研" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          科研
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        一个介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A6%82%E4%BD%95/" class="md-nav__link">
+        如何
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%89%80%E6%9C%89%E7%9C%8B%E8%BF%87%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8/" class="md-nav__link">
+        paperlist
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        环境配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BA%E6%96%87%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/" class="md-nav__link">
+        论文公式推导
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_6">
+          RLHF
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="RLHF" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          RLHF
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RLHF/" class="md-nav__link">
+        RLHF
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Diffusion库
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Diffusion库" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Diffusion库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../diffusion%E5%BA%93/" class="md-nav__link">
+        diffusion库
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8">
+          图文大模型
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="图文大模型" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          图文大模型
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01working_log/" class="md-nav__link">
+        工作日志
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diffedit/" class="md-nav__link">
+        Diffedit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dream_booth/" class="md-nav__link">
+        DreamBooth
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../finetune/" class="md-nav__link">
+        高效参数微调
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          attention map hand inject
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        attention map hand inject
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前言
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prompt-to-prompt/" class="md-nav__link">
+        prompt-to-prompt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../textual_inversion/" class="md-nav__link">
+        Textual inversion
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_9" type="checkbox" id="__nav_5_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_9">
+          珠算
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="珠算" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_9">
+          <span class="md-nav__icon md-icon"></span>
+          珠算
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8F%A0%E7%AE%97/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8F%A0%E7%AE%97/zhusuan_worklog/" class="md-nav__link">
+        工作日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前言
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="attention-map-hand-inject">attention map hand inject</h1>
+<ul>
+<li>[toc]</li>
+</ul>
+<h3 id="_1">前言</h3>
+<p>根据我们在“Prompt-to-Prompt Image Editing with Cross Attention Control”这篇文章复现过程中的探索, 我们尝试了手动控制attention map的方式, 发现确实可以得到一定的效果, 这一部分的研究值得深入, 附在文章复现的章节显得略微散乱, 所以再开一个新的章节来记录实验结果。</p>
+<p>可以研究和验证的方向:</p>
+<ul>
+<li>[ ] 验证value在过程中是否不变</li>
+<li>[x] 尝试不同的inject方法</li>
+<li>[x] inject 更多大小的map</li>
+<li>[ ] 尝试self attention</li>
+<li>[ ] 尝试从init image中获取attention map</li>
+<li>[ ] 尝试从不同的seed中获取attention map</li>
+<li>[ ] 尝试某种形式的guidance</li>
+</ul>
+<h1 id="_2">前期实验</h1>
+<p>在初步验证手动inject有效果后, 我们初步尝试了不同inject方式以及其他参数的影响, 获得基本的参数影响认知。</p>
+<h2 id="function-scale">function scale</h2>
+<p>本实验尝试了不同的inject function的影响, 每一列为一个function, 分别为</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">inject1</span><span class="p">(</span><span class="n">attention_scores</span><span class="p">,</span> <span class="n">inject_map_dicts</span><span class="p">,</span> <span class="n">inject_scale</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    absolute adding on softmaxed map, only on 64*64 maps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">attn_slice</span> <span class="o">=</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map&quot;</span><span class="p">]</span>
+            <span class="n">attn_slice</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+    <span class="k">return</span> <span class="n">attn_slice</span>
+
+<span class="k">def</span> <span class="nf">inject2</span><span class="p">(</span><span class="n">attention_scores</span><span class="p">,</span> <span class="n">inject_map_dicts</span><span class="p">,</span> <span class="n">inject_scale</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    absolute replace on softmaxed map, only on 64*64 maps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">attn_slice</span> <span class="o">=</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map&quot;</span><span class="p">]</span>
+            <span class="n">attn_slice</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+    <span class="k">return</span> <span class="n">attn_slice</span>
+
+<span class="k">def</span> <span class="nf">inject3</span><span class="p">(</span><span class="n">attention_scores</span><span class="p">,</span> <span class="n">inject_map_dicts</span><span class="p">,</span> <span class="n">inject_scale</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    absolute adding on attention scores, only on 64*64 maps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map&quot;</span><span class="p">]</span>
+            <span class="n">attention_scores</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+
+    <span class="n">attn_slice</span> <span class="o">=</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">attn_slice</span>
+
+<span class="k">def</span> <span class="nf">inject4</span><span class="p">(</span><span class="n">attention_scores</span><span class="p">,</span> <span class="n">inject_map_dicts</span><span class="p">,</span> <span class="n">inject_scale</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    absolute replacing on attention scores, only on 64*64 maps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map&quot;</span><span class="p">]</span>
+            <span class="n">attention_scores</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+    <span class="n">attn_slice</span> <span class="o">=</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">attn_slice</span>
+
+
+
+<span class="k">def</span> <span class="nf">inject5</span><span class="p">(</span><span class="n">attention_scores</span><span class="p">,</span> <span class="n">inject_map_dicts</span><span class="p">,</span> <span class="n">inject_scale</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    absolute adding on softmaxed map, on both 32*32 and 64*64 maps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">attn_slice</span> <span class="o">=</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map&quot;</span><span class="p">]</span>
+            <span class="n">attn_slice</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+    <span class="k">elif</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">32</span><span class="o">*</span><span class="mi">32</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map_32&quot;</span><span class="p">]</span>
+            <span class="n">attn_slice</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+    <span class="k">return</span> <span class="n">attn_slice</span>
+
+<span class="k">def</span> <span class="nf">inject6</span><span class="p">(</span><span class="n">attention_scores</span><span class="p">,</span> <span class="n">inject_map_dicts</span><span class="p">,</span> <span class="n">inject_scale</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    absolute replace on softmaxed map, on both 32*32 and 64*64 maps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">attn_slice</span> <span class="o">=</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map&quot;</span><span class="p">]</span>
+            <span class="n">attn_slice</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+    <span class="k">elif</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">32</span><span class="o">*</span><span class="mi">32</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map_32&quot;</span><span class="p">]</span>
+            <span class="n">attn_slice</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+    <span class="k">return</span> <span class="n">attn_slice</span>
+
+<span class="k">def</span> <span class="nf">inject7</span><span class="p">(</span><span class="n">attention_scores</span><span class="p">,</span> <span class="n">inject_map_dicts</span><span class="p">,</span> <span class="n">inject_scale</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    absolute adding on attention scores, on both 32*32 and 64*64 maps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map&quot;</span><span class="p">]</span>
+            <span class="n">attention_scores</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+    <span class="k">elif</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">32</span><span class="o">*</span><span class="mi">32</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map_32&quot;</span><span class="p">]</span>
+            <span class="n">attention_scores</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+
+    <span class="n">attn_slice</span> <span class="o">=</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">attn_slice</span>
+
+<span class="k">def</span> <span class="nf">inject8</span><span class="p">(</span><span class="n">attention_scores</span><span class="p">,</span> <span class="n">inject_map_dicts</span><span class="p">,</span> <span class="n">inject_scale</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    absolute replacing on attention scores, on both 32*32 and 64*64 maps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map&quot;</span><span class="p">]</span>
+            <span class="n">attention_scores</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+    <span class="k">elif</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">32</span><span class="o">*</span><span class="mi">32</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+            <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+            <span class="n">inject_map</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;inject_map_32&quot;</span><span class="p">]</span>
+            <span class="n">attention_scores</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">inject_map</span> <span class="o">*</span> <span class="n">inject_scale</span>
+    <span class="n">attn_slice</span> <span class="o">=</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">attn_slice</span>
+
+
+<span class="n">inject_functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">inject1</span><span class="p">,</span> <span class="n">inject2</span><span class="p">,</span> <span class="n">inject3</span><span class="p">,</span> <span class="n">inject4</span><span class="p">,</span> <span class="n">inject5</span><span class="p">,</span> <span class="n">inject6</span><span class="p">,</span> <span class="n">inject7</span><span class="p">,</span> <span class="n">inject8</span><span class="p">]</span>
+</code></pre></div>
+<p>prompt_edit_tokens_start=0.8</p>
+<p>scale in [0, 1, 2, 3, 4], 依次递增</p>
+<p><img alt="func-scale" src="../hand_inject.assets/func-scale.jpg" /></p>
+<h4 id="injectmap">结论是, inject更多的map更有效, 绝对值加在归一化之后会更有效, 但会变得不稳定。</h4>
+<h2 id="map-scale">map-scale</h2>
+<p>横向scale [1., 1.5,2., 2.3, 2.7, 3., 3.2, 3.5]</p>
+<p>function = inject5, 第一行为同时控制car和animal的map, 第二行只控制animal, 第三行只控制car</p>
+<p><img alt="maps-scale" src="../hand_inject.assets/maps-scale.jpg" /></p>
+<p>可以做到分别控制, 但是控制依然不稳定。</p>
+<h2 id="scale-cs">scale-cs</h2>
+<p>for scale in [1., 1.5,2., 2.3, 2.7, 3., 3.2, 3.5]:
+    for cs in [0.95, 0.9, 0.85, 0.8, 0.75, 0.6, 0.3]:</p>
+<p>横向, cs 从0.3到0.95</p>
+<p>纵向, scale 从1. 到3.5</p>
+<p><img alt="scale-cs" src="../hand_inject.assets/scale-cs.jpg" /></p>
+<p>作用力度过强, 作用时间过长, 都容易生成糟糕的图像。</p>
+<h2 id="number">number</h2>
+<p>之前有注意到, diffusion model对于数量的控制不是很理想, 再联想到在之前的attention map inject过程中, 老虎因为身体过长而导致分裂, 出现两个虎头, 这可能说明attention区域的数量以及分离程度很可能影响图片中物体的数量。</p>
+<p><img alt="5011667803241_.pic" src="../hand_inject.assets/5011667803241_.pic.jpg" /></p>
+<p><img alt="5021667803756_.pic" src="../hand_inject.assets/5021667803756_.pic.jpg" /></p>
+<p><img alt="5041667804341_.pic" src="../hand_inject.assets/5041667804341_.pic.jpg" /></p>
+<p><img alt="image-20221107195724071" src="../hand_inject.assets/image-20221107195724071.png" /></p>
+<h1 id="_3">寻找稳定方式</h1>
+<p>我们注意到, 不同阶段, 同一个词对应的attention map的均值或者说绝对值大小是不一样的, 原因是在获得attention score后, 是在最后一个维度, 也就是单词的维度进行softmax。也就是说, 在同一次迭代中,  不同词对应的attention map的权重可能是不一样的, 可能在某一步, 模型注重生成第二个词相关的内容, 而下一步模型又注重第四个词的生成了。</p>
+<p>具体而言, 我们打印了64x64的attention map的均值和norm:</p>
+<div class="highlight"><pre><span></span><code>    <span class="n">attn_slice</span> <span class="o">=</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">inject_map_dicts</span><span class="p">:</span>
+        <span class="n">word_index</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;word_index&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">attention_scores</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">attn_slice</span><span class="p">[:,:,</span><span class="n">word_index</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+            <span class="c1">#print(torch.norm(attn_slice[:,:,word_index]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>#均值
+tensor(0.0080, device=&#39;cuda:2&#39;)
+tensor(0.0080, device=&#39;cuda:2&#39;)
+tensor(0.0051, device=&#39;cuda:2&#39;)
+tensor(0.0148, device=&#39;cuda:2&#39;)
+tensor(0.0274, device=&#39;cuda:2&#39;)
+tensor(0.0076, device=&#39;cuda:2&#39;)
+tensor(0.0078, device=&#39;cuda:2&#39;)
+tensor(0.0049, device=&#39;cuda:2&#39;)
+tensor(0.0146, device=&#39;cuda:2&#39;)
+tensor(0.0282, device=&#39;cuda:2&#39;)
+tensor(0.0072, device=&#39;cuda:2&#39;)
+#nrom
+tensor(1.1415, device=&#39;cuda:2&#39;)
+tensor(5.9604, device=&#39;cuda:2&#39;)
+tensor(3.5211, device=&#39;cuda:2&#39;)
+tensor(0.9643, device=&#39;cuda:2&#39;)
+tensor(1.2418, device=&#39;cuda:2&#39;)
+tensor(1.1404, device=&#39;cuda:2&#39;)
+tensor(5.9061, device=&#39;cuda:2&#39;)
+tensor(3.6695, device=&#39;cuda:2&#39;)
+</code></pre></div>
+<p>所以我们决定依据norm来确定我们inject的scale, 这样就不会因为绝对值上的inject而导致很难调节或者不稳定的情况, 实验还在做。</p>
+<p>我们尝试了许多的和norm相关的设置inject scale的方法,  但是依然不work, 稳定的控制效果不好, 控制效果好的不稳定。</p>
+<p>和学长交流后, 我们可以尝试某些guidance的方式, 或者用别的方式得到文理比较合理的attention map。</p>
+<p>同时我们需要检查self attention如何改变, 同时, 我们需要验证value是否一直都不变化。</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../finetune/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 高效参数微调" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              高效参数微调
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../prompt-to-prompt/" class="md-footer__link md-footer__link--next" aria-label="Next: prompt-to-prompt" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              prompt-to-prompt
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.37e9125f.min.js"></script>
+      
+    
+  </body>
+</html>

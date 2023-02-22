@@ -1,0 +1,2439 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.3">
+    
+    
+      
+        <title>DreamBooth - 项小羽的学习与科研</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7a952b86.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dreambooth" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="项小羽的学习与科研" class="md-header__button md-logo" aria-label="项小羽的学习与科研" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            项小羽的学习与科研
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DreamBooth
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      欢迎来到项小羽的学习与科研
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%85%B6%E4%BB%96/books/" class="md-tabs__link">
+        其他
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0/%E7%AE%80%E4%BB%8B/" class="md-tabs__link">
+        学习
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%B7%A5%E5%85%B7/" class="md-tabs__link">
+        工具
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BB%8B%E7%BB%8D/" class="md-tabs__link md-tabs__link--active">
+        科研
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="项小羽的学习与科研" class="md-nav__button md-logo" aria-label="项小羽的学习与科研" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    项小羽的学习与科研
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        欢迎来到项小羽的学习与科研
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          其他
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="其他" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          其他
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%85%B6%E4%BB%96/books/" class="md-nav__link">
+        推荐几本书?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%85%B6%E4%BB%96/music/" class="md-nav__link">
+        好歌推荐
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%85%B6%E4%BB%96/website/" class="md-nav__link">
+        在这里分享一些有用的网址
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="学习" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          学习
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0/%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        一个简单的简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          超算
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="超算" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          超算
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0/%E8%B6%85%E7%AE%97/ASC22/" class="md-nav__link">
+        ASC22
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0/%E8%B6%85%E7%AE%97/IPCC22/" class="md-nav__link">
+        IPCC2022
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0/%E8%B6%85%E7%AE%97/ISC23/" class="md-nav__link">
+        ISC23
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          工具
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="工具" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          工具
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B7%A5%E5%85%B7/teach%20you%20mac/" class="md-nav__link">
+        项小羽试图教你用mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B7%A5%E5%85%B7/vscode/" class="md-nav__link">
+        Vscode配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B7%A5%E5%85%B7/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" class="md-nav__link">
+        如何跨越长城
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          科研
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="科研" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          科研
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        一个介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A6%82%E4%BD%95/" class="md-nav__link">
+        如何
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%89%80%E6%9C%89%E7%9C%8B%E8%BF%87%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8/" class="md-nav__link">
+        paperlist
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        环境配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BA%E6%96%87%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/" class="md-nav__link">
+        论文公式推导
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_6">
+          RLHF
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="RLHF" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          RLHF
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RLHF/" class="md-nav__link">
+        RLHF
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Diffusion库
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Diffusion库" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Diffusion库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../diffusion%E5%BA%93/" class="md-nav__link">
+        diffusion库
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8">
+          图文大模型
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="图文大模型" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          图文大模型
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01working_log/" class="md-nav__link">
+        工作日志
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diffedit/" class="md-nav__link">
+        Diffedit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          DreamBooth
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        DreamBooth
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前言
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    复现和熟悉过程
+  </a>
+  
+    <nav class="md-nav" aria-label="复现和熟悉过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    粗读代码
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    复现结果
+  </a>
+  
+    <nav class="md-nav" aria-label="复现结果">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    小羊
+  </a>
+  
+    <nav class="md-nav" aria-label="小羊">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    原图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    生成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finetunedog" class="md-nav__link">
+    finetune前后dog对比
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    生成其他内容
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after-finetune" class="md-nav__link">
+    after finetune
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#before-finetune" class="md-nav__link">
+    before finetune
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#magic-cube" class="md-nav__link">
+    magic cube
+  </a>
+  
+    <nav class="md-nav" aria-label="magic cube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    原图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    生成
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    结论
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../finetune/" class="md-nav__link">
+        高效参数微调
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hand_inject/" class="md-nav__link">
+        attention map hand inject
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prompt-to-prompt/" class="md-nav__link">
+        prompt-to-prompt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../textual_inversion/" class="md-nav__link">
+        Textual inversion
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_9" type="checkbox" id="__nav_5_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_9">
+          珠算
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="珠算" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_9">
+          <span class="md-nav__icon md-icon"></span>
+          珠算
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8F%A0%E7%AE%97/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8F%A0%E7%AE%97/zhusuan_worklog/" class="md-nav__link">
+        工作日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前言
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    复现和熟悉过程
+  </a>
+  
+    <nav class="md-nav" aria-label="复现和熟悉过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    粗读代码
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    复现结果
+  </a>
+  
+    <nav class="md-nav" aria-label="复现结果">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    小羊
+  </a>
+  
+    <nav class="md-nav" aria-label="小羊">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    原图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    生成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finetunedog" class="md-nav__link">
+    finetune前后dog对比
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    生成其他内容
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after-finetune" class="md-nav__link">
+    after finetune
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#before-finetune" class="md-nav__link">
+    before finetune
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#magic-cube" class="md-nav__link">
+    magic cube
+  </a>
+  
+    <nav class="md-nav" aria-label="magic cube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    原图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    生成
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    结论
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="dreambooth">DreamBooth</h1>
+<ul>
+<li>[toc]</li>
+</ul>
+<h2 id="_1">前言</h2>
+<p>这一部分主要聚焦如何控制一个固定物体在生成过程中出现, 并且细节也很到位, 这里的复现工作基于google的文章“DreamBooth: Fine Tuning Text-to-Image Diffusion Models for Subject-Driven Generation” , 代码则基于https://github.com/XavierXiao/Dreambooth-Stable-Diffusion, 这是基于stable-diffusion的实现。</p>
+<p><img alt="image-20221101183638962" src="../dream_booth.assets/image-20221101183638962.png" /></p>
+<p><img alt="image-20221101183727773" src="../dream_booth.assets/image-20221101183727773.png" /></p>
+<p>我们在这里期望做到以下几点:</p>
+<ol>
+<li>复现代码和文章, 看看效果</li>
+<li>对比finetune前后的模型, 哪些参数改变比较大? </li>
+<li>正则化对其他类型的生成有多大影响?</li>
+<li>尝试fix住一部分参数的效果</li>
+<li>思考如何使用参数高效微调。</li>
+</ol>
+<h2 id="_2">复现和熟悉过程</h2>
+<p>话不多说, 直接上命令。</p>
+<div class="highlight"><pre><span></span><code>git clone git@github.com:Xiang-cd/Dreambooth-Stable-Diffusion.git
+conda env create -f environment.yaml
+conda activate ldm
+</code></pre></div>
+<p>接下来需要下载模型, 这里需要如下命令, 并且需要huggingface的账户, 运行后输入密码即可, 随后会开始下载, 请记住你下载的路径:</p>
+<div class="highlight"><pre><span></span><code>wget https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4-full-ema.ckpt --user<span class="o">=</span>Xiang-cd --ask-password
+https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt
+</code></pre></div>
+<p>根据文章, 为了正则化模型, 首先会让模型生成很多的同类图片, 需要指定种类, 例如你希望你家的狗(一只特定的狗), 准确的被生成, 但同时又希望同时保持生成其他种类的狗的能力, 所以你需要准备很多其他狗的照片, 在finetune的过程中同时设置相应loss, 保持模型生成其他狗的能力, 所以, 我们调动生成器, 进行生成。</p>
+<p>第一步我们使用狗作为正则化的图片。</p>
+<div class="highlight"><pre><span></span><code>python scripts/stable_txt2img.py <span class="se">\</span>
+--ddim_eta <span class="m">0</span>.0 --n_samples <span class="m">2</span> --n_iter <span class="m">100</span> <span class="se">\</span>
+--scale <span class="m">10</span>.0 --ddim_steps <span class="m">50</span>  <span class="se">\</span>
+--ckpt /mfs/xiangchendong19/stable-diffusion-ckpt/sd-v1-4-full-ema.ckpt <span class="se">\</span>
+--prompt <span class="s2">&quot;a photo of a dog&quot;</span> <span class="se">\</span>
+--outdir  /home/xiangchendong19/Dreambooth-Stable-Diffusion/data/xiaoyang/reg_dog 
+</code></pre></div>
+<p>魔方其实在stable diffusion的生成中其实没有很好的效果, 我们想看看, 如果利用finetune的方法,  能不能至少生成一个像样的魔方。</p>
+<div class="highlight"><pre><span></span><code>python scripts/stable_txt2img.py <span class="se">\</span>
+--ddim_eta <span class="m">0</span>.0 --n_samples <span class="m">2</span> --n_iter <span class="m">100</span> <span class="se">\</span>
+--scale <span class="m">10</span>.0 --ddim_steps <span class="m">50</span>  <span class="se">\</span>
+--ckpt /mfs/xiangchendong19/stable-diffusion-ckpt/sd-v1-4-full-ema.ckpt <span class="se">\</span>
+--prompt <span class="s2">&quot;a photo of a magic cube&quot;</span> <span class="se">\</span>
+--outdir  /home/xiangchendong19/Dreambooth-Stable-Diffusion/data/cube/reg_cube
+</code></pre></div>
+<p>第二步, 同时我们可以进行finetune, 因为文件系统磁盘的原因, 把输出的模型参数的位置改了一下, 具体的脚本含义看源代码仓库的readme就可以:</p>
+<div class="highlight"><pre><span></span><code>python main.py <span class="se">\</span>
+--base configs/stable-diffusion/v1-finetune_unfrozen.yaml <span class="se">\</span>
+-t <span class="se">\</span>
+--actual_resume ~/stable-diffusion-ckpt/sd-v1-4-full-ema.ckpt  <span class="se">\</span>
+-n xiaoyang <span class="se">\</span>
+--gpus <span class="m">0</span>, <span class="se">\</span>
+--data_root ~/Dreambooth-Stable-Diffusion/data/xiaoyang/example <span class="se">\</span>
+--reg_data_root ~/Dreambooth-Stable-Diffusion/data/xiaoyang/reg_dog/samples <span class="se">\</span>
+--class_word dog <span class="se">\</span>
+--logdir ~/DreamBoothlog
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python main.py <span class="se">\</span>
+--base configs/stable-diffusion/v1-finetune_unfrozen.yaml <span class="se">\</span>
+-t <span class="se">\</span>
+--actual_resume ~/stable-diffusion-ckpt/sd-v1-4-full-ema.ckpt  <span class="se">\</span>
+-n cube <span class="se">\</span>
+--gpus <span class="m">0</span>, <span class="se">\</span>
+--data_root ~/Dreambooth-Stable-Diffusion/data/cube/example <span class="se">\</span>
+--reg_data_root ~/Dreambooth-Stable-Diffusion/data/cube/reg_cube/samples <span class="se">\</span>
+--class_word <span class="s2">&quot;magic cube&quot;</span> 
+</code></pre></div>
+<p>第三步, 生成</p>
+<div class="highlight"><pre><span></span><code>python scripts/stable_txt2img.py <span class="se">\</span>
+--ddim_eta <span class="m">0</span>.0 <span class="se">\</span>
+--n_samples <span class="m">4</span> <span class="se">\</span>
+--n_iter <span class="m">1</span> <span class="se">\</span>
+--scale <span class="m">10</span>.0 <span class="se">\</span>
+--ddim_steps <span class="m">100</span>  <span class="se">\</span>
+--ckpt ~/Dreambooth-Stable-Diffusion/logs/example2022-10-31T16-56-41_xiaoyang/checkpoints/last.ckpt <span class="se">\</span>
+--prompt <span class="s2">&quot;photo of a sks dog&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python scripts/stable_txt2img.py <span class="se">\</span>
+--ddim_eta <span class="m">0</span>.0 <span class="se">\</span>
+--n_samples <span class="m">4</span> <span class="se">\</span>
+--n_iter <span class="m">1</span> <span class="se">\</span>
+--scale <span class="m">10</span>.0 <span class="se">\</span>
+--ddim_steps <span class="m">100</span>  <span class="se">\</span>
+--ckpt /mfs/xiangchendong19/stable-diffusion-ckpt/cube.ckpt <span class="se">\ </span>
+--prompt <span class="s2">&quot;photo of a sks magic cube&quot;</span>
+</code></pre></div>
+<h3 id="_3">粗读代码</h3>
+<p>同理, 我们来看看代码的实现是怎么样来进行训练的吧!</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># load 一些包</span>
+<span class="kn">import</span> <span class="nn">argparse</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">datetime</span><span class="o">,</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">importlib</span><span class="o">,</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="nn">pl</span>
+
+<span class="kn">from</span> <span class="nn">packaging</span> <span class="kn">import</span> <span class="n">version</span>
+<span class="kn">from</span> <span class="nn">omegaconf</span> <span class="kn">import</span> <span class="n">OmegaConf</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">random_split</span><span class="p">,</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">Subset</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="kn">from</span> <span class="nn">pytorch_lightning</span> <span class="kn">import</span> <span class="n">seed_everything</span>
+<span class="kn">from</span> <span class="nn">pytorch_lightning.trainer</span> <span class="kn">import</span> <span class="n">Trainer</span>
+<span class="kn">from</span> <span class="nn">pytorch_lightning.callbacks</span> <span class="kn">import</span> <span class="n">ModelCheckpoint</span><span class="p">,</span> <span class="n">Callback</span><span class="p">,</span> <span class="n">LearningRateMonitor</span>
+<span class="kn">from</span> <span class="nn">pytorch_lightning.utilities.distributed</span> <span class="kn">import</span> <span class="n">rank_zero_only</span>
+<span class="kn">from</span> <span class="nn">pytorch_lightning.utilities</span> <span class="kn">import</span> <span class="n">rank_zero_info</span>
+
+<span class="kn">from</span> <span class="nn">ldm.data.base</span> <span class="kn">import</span> <span class="n">Txt2ImgIterableBaseDataset</span>
+<span class="kn">from</span> <span class="nn">ldm.util</span> <span class="kn">import</span> <span class="n">instantiate_from_config</span>
+
+<span class="c1"># 依据config文件, 从ckpt路径中加载模型</span>
+<span class="k">def</span> <span class="nf">load_model_from_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">ckpt</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading model from </span><span class="si">{</span><span class="n">ckpt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">pl_sd</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ckpt</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+    <span class="n">sd</span> <span class="o">=</span> <span class="n">pl_sd</span><span class="p">[</span><span class="s2">&quot;state_dict&quot;</span><span class="p">]</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">ckpt_path</span> <span class="o">=</span> <span class="n">ckpt</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">instantiate_from_config</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">sd</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;missing keys:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unexpected keys:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">model</span>
+
+<span class="k">def</span> <span class="nf">get_parser</span><span class="p">(</span><span class="o">**</span><span class="n">parser_kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">str2bool</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">v</span>
+        <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;no&quot;</span><span class="p">,</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentTypeError</span><span class="p">(</span><span class="s2">&quot;Boolean value expected.&quot;</span><span class="p">)</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="o">**</span><span class="n">parser_kwargs</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-n&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--name&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">const</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;postfix for logdir&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-r&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--resume&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">const</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;resume from logdir or checkpoint in logdir&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-b&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--base&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;base_config.yaml&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;paths to base configs. Loaded from left-to-right. &quot;</span>
+             <span class="s2">&quot;Parameters can be overwritten or added with command-line options of the form `--key value`.&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="nb">list</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-t&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--train&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">str2bool</span><span class="p">,</span>
+        <span class="n">const</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--no-test&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">str2bool</span><span class="p">,</span>
+        <span class="n">const</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;disable test&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-p&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--project&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;name of new or path to existing project&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-d&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--debug&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">str2bool</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+        <span class="n">const</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;enable post-mortem debugging&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--seed&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;seed for seed_everything&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--postfix&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;post-postfix for default name&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-l&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--logdir&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;logs&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;directory for logging dat shit&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--scale_lr&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">str2bool</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+        <span class="n">const</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;scale base-lr by ngpu * batch_size * n_accumulate&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--datadir_in_name&quot;</span><span class="p">,</span> 
+        <span class="nb">type</span><span class="o">=</span><span class="n">str2bool</span><span class="p">,</span> 
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> 
+        <span class="n">const</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Prepend the final directory in the data_root to the output directory name&quot;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--actual_resume&quot;</span><span class="p">,</span> 
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to model to actually resume from&quot;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--data_root&quot;</span><span class="p">,</span> 
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> 
+        <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to directory with training images&quot;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--reg_data_root&quot;</span><span class="p">,</span> 
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> 
+        <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to directory with regularization images&quot;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--embedding_manager_ckpt&quot;</span><span class="p">,</span> 
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> 
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> 
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Initialize embedding manager from a checkpoint&quot;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--class_word&quot;</span><span class="p">,</span> 
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> 
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;dog&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Placeholder token which will be used to denote the concept in future prompts&quot;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--init_word&quot;</span><span class="p">,</span> 
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> 
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Word to use as source for initial token embedding&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">parser</span>
+
+
+<span class="k">def</span> <span class="nf">nondefault_trainer_args</span><span class="p">(</span><span class="n">opt</span><span class="p">):</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">Trainer</span><span class="o">.</span><span class="n">add_argparse_args</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">([])</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">WrappedDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wraps an arbitrary object with __len__ and __getitem__ into a pytorch dataset&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">worker_init_fn</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>
+    <span class="n">worker_info</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get_worker_info</span><span class="p">()</span>
+
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">worker_info</span><span class="o">.</span><span class="n">dataset</span>
+    <span class="n">worker_id</span> <span class="o">=</span> <span class="n">worker_info</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">Txt2ImgIterableBaseDataset</span><span class="p">):</span>
+        <span class="n">split_size</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_records</span> <span class="o">//</span> <span class="n">worker_info</span><span class="o">.</span><span class="n">num_workers</span>
+        <span class="c1"># reset num_records to the true number to retain reliable length information</span>
+        <span class="n">dataset</span><span class="o">.</span><span class="n">sample_ids</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">valid_ids</span><span class="p">[</span><span class="n">worker_id</span> <span class="o">*</span> <span class="n">split_size</span><span class="p">:(</span><span class="n">worker_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">split_size</span><span class="p">]</span>
+        <span class="n">current_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_state</span><span class="p">()[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_state</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="n">current_id</span><span class="p">]</span> <span class="o">+</span> <span class="n">worker_id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_state</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">worker_id</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ConcatDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">datasets</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="n">datasets</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">DataModuleFromConfig</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">LightningDataModule</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reg</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">validation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">predict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">wrap</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shuffle_test_loader</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_worker_init_fn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">shuffle_val_dataloader</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset_configs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="o">=</span> <span class="n">num_workers</span> <span class="k">if</span> <span class="n">num_workers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">batch_size</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_worker_init_fn</span> <span class="o">=</span> <span class="n">use_worker_init_fn</span>
+        <span class="k">if</span> <span class="n">train</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataset_configs</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span>
+        <span class="k">if</span> <span class="n">reg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataset_configs</span><span class="p">[</span><span class="s2">&quot;reg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reg</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_dataloader</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_train_dataloader</span>
+
+        <span class="k">if</span> <span class="n">validation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataset_configs</span><span class="p">[</span><span class="s2">&quot;validation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">validation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">val_dataloader</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_val_dataloader</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle_val_dataloader</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">test</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataset_configs</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">test_dataloader</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_test_dataloader</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle_test_loader</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">predict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataset_configs</span><span class="p">[</span><span class="s2">&quot;predict&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predict</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predict_dataloader</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_predict_dataloader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wrap</span> <span class="o">=</span> <span class="n">wrap</span>
+
+    <span class="k">def</span> <span class="nf">prepare_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">data_cfg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_configs</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">instantiate_from_config</span><span class="p">(</span><span class="n">data_cfg</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stage</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">instantiate_from_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_configs</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_configs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">WrappedDataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_train_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">is_iterable_dataset</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">],</span> <span class="n">Txt2ImgIterableBaseDataset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_iterable_dataset</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_worker_init_fn</span><span class="p">:</span>
+            <span class="n">init_fn</span> <span class="o">=</span> <span class="n">worker_init_fn</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">init_fn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">train_set</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span>
+        <span class="n">reg_set</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s2">&quot;reg&quot;</span><span class="p">]</span>
+        <span class="n">concat_dataset</span> <span class="o">=</span> <span class="n">ConcatDataset</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="n">reg_set</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">concat_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+                          <span class="n">num_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span> <span class="k">if</span> <span class="n">is_iterable_dataset</span> <span class="k">else</span> <span class="kc">True</span><span class="p">,</span>
+                          <span class="n">worker_init_fn</span><span class="o">=</span><span class="n">init_fn</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_val_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;validation&#39;</span><span class="p">],</span> <span class="n">Txt2ImgIterableBaseDataset</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_worker_init_fn</span><span class="p">:</span>
+            <span class="n">init_fn</span> <span class="o">=</span> <span class="n">worker_init_fn</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">init_fn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s2">&quot;validation&quot;</span><span class="p">],</span>
+                          <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+                          <span class="n">num_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span>
+                          <span class="n">worker_init_fn</span><span class="o">=</span><span class="n">init_fn</span><span class="p">,</span>
+                          <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_test_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">is_iterable_dataset</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">],</span> <span class="n">Txt2ImgIterableBaseDataset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_iterable_dataset</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_worker_init_fn</span><span class="p">:</span>
+            <span class="n">init_fn</span> <span class="o">=</span> <span class="n">worker_init_fn</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">init_fn</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># do not shuffle dataloader for iterable dataset</span>
+        <span class="n">shuffle</span> <span class="o">=</span> <span class="n">shuffle</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">is_iterable_dataset</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+                          <span class="n">num_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">worker_init_fn</span><span class="o">=</span><span class="n">init_fn</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_predict_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;predict&#39;</span><span class="p">],</span> <span class="n">Txt2ImgIterableBaseDataset</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_worker_init_fn</span><span class="p">:</span>
+            <span class="n">init_fn</span> <span class="o">=</span> <span class="n">worker_init_fn</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">init_fn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s2">&quot;predict&quot;</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+                          <span class="n">num_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">worker_init_fn</span><span class="o">=</span><span class="n">init_fn</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SetupCallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resume</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">logdir</span><span class="p">,</span> <span class="n">ckptdir</span><span class="p">,</span> <span class="n">cfgdir</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">lightning_config</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resume</span> <span class="o">=</span> <span class="n">resume</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">now</span> <span class="o">=</span> <span class="n">now</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logdir</span> <span class="o">=</span> <span class="n">logdir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ckptdir</span> <span class="o">=</span> <span class="n">ckptdir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfgdir</span> <span class="o">=</span> <span class="n">cfgdir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lightning_config</span> <span class="o">=</span> <span class="n">lightning_config</span>
+
+    <span class="k">def</span> <span class="nf">on_keyboard_interrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Summoning checkpoint.&quot;</span><span class="p">)</span>
+            <span class="n">ckpt_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ckptdir</span><span class="p">,</span> <span class="s2">&quot;last.ckpt&quot;</span><span class="p">)</span>
+            <span class="n">trainer</span><span class="o">.</span><span class="n">save_checkpoint</span><span class="p">(</span><span class="n">ckpt_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">on_pretrain_routine_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Create logdirs and save configs</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logdir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ckptdir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfgdir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="s2">&quot;callbacks&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lightning_config</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;metrics_over_trainsteps_checkpoint&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lightning_config</span><span class="p">[</span><span class="s1">&#39;callbacks&#39;</span><span class="p">]:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ckptdir</span><span class="p">,</span> <span class="s1">&#39;trainstep_checkpoints&#39;</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Project config&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">OmegaConf</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">))</span>
+            <span class="n">OmegaConf</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
+                           <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfgdir</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">-project.yaml&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">)))</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Lightning config&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">OmegaConf</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lightning_config</span><span class="p">))</span>
+            <span class="n">OmegaConf</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">OmegaConf</span><span class="o">.</span><span class="n">create</span><span class="p">({</span><span class="s2">&quot;lightning&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lightning_config</span><span class="p">}),</span>
+                           <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfgdir</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">-lightning.yaml&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">)))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># ModelCheckpoint callback created log directory --- remove it</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">resume</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logdir</span><span class="p">):</span>
+                <span class="n">dst</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logdir</span><span class="p">)</span>
+                <span class="n">dst</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="s2">&quot;child_runs&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">dst</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logdir</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">ImageLogger</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_frequency</span><span class="p">,</span> <span class="n">max_images</span><span class="p">,</span> <span class="n">clamp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">increase_log_steps</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">rescale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">log_on_batch_idx</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">log_first_step</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">log_images_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rescale</span> <span class="o">=</span> <span class="n">rescale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_freq</span> <span class="o">=</span> <span class="n">batch_frequency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_images</span> <span class="o">=</span> <span class="n">max_images</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger_log_images</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">pl</span><span class="o">.</span><span class="n">loggers</span><span class="o">.</span><span class="n">TestTubeLogger</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_testtube</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_steps</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">**</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_freq</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">increase_log_steps</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_steps</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_freq</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clamp</span> <span class="o">=</span> <span class="n">clamp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="n">disabled</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_on_batch_idx</span> <span class="o">=</span> <span class="n">log_on_batch_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_images_kwargs</span> <span class="o">=</span> <span class="n">log_images_kwargs</span> <span class="k">if</span> <span class="n">log_images_kwargs</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_first_step</span> <span class="o">=</span> <span class="n">log_first_step</span>
+
+    <span class="nd">@rank_zero_only</span>
+    <span class="k">def</span> <span class="nf">_testtube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">split</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="p">(</span><span class="n">grid</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>  <span class="c1"># -1,1 -&gt; 0,1; c,h,w</span>
+
+            <span class="n">tag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">pl_module</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span>
+                <span class="n">tag</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span>
+                <span class="n">global_step</span><span class="o">=</span><span class="n">pl_module</span><span class="o">.</span><span class="n">global_step</span><span class="p">)</span>
+
+    <span class="nd">@rank_zero_only</span>
+    <span class="k">def</span> <span class="nf">log_local</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_dir</span><span class="p">,</span> <span class="n">split</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span>
+                  <span class="n">global_step</span><span class="p">,</span> <span class="n">current_epoch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="n">split</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rescale</span><span class="p">:</span>
+                <span class="n">grid</span> <span class="o">=</span> <span class="p">(</span><span class="n">grid</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>  <span class="c1"># -1,1 -&gt; 0,1; c,h,w</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="p">(</span><span class="n">grid</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_gs-</span><span class="si">{:06}</span><span class="s2">_e-</span><span class="si">{:06}</span><span class="s2">_b-</span><span class="si">{:06}</span><span class="s2">.jpg&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">k</span><span class="p">,</span>
+                <span class="n">global_step</span><span class="p">,</span>
+                <span class="n">current_epoch</span><span class="p">,</span>
+                <span class="n">batch_idx</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">log_img</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">):</span>
+        <span class="n">check_idx</span> <span class="o">=</span> <span class="n">batch_idx</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_on_batch_idx</span> <span class="k">else</span> <span class="n">pl_module</span><span class="o">.</span><span class="n">global_step</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_frequency</span><span class="p">(</span><span class="n">check_idx</span><span class="p">)</span> <span class="ow">and</span>  <span class="c1"># batch_idx % self.batch_freq == 0</span>
+                <span class="nb">hasattr</span><span class="p">(</span><span class="n">pl_module</span><span class="p">,</span> <span class="s2">&quot;log_images&quot;</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="n">callable</span><span class="p">(</span><span class="n">pl_module</span><span class="o">.</span><span class="n">log_images</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">max_images</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">logger</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">pl_module</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
+
+            <span class="n">is_train</span> <span class="o">=</span> <span class="n">pl_module</span><span class="o">.</span><span class="n">training</span>
+            <span class="k">if</span> <span class="n">is_train</span><span class="p">:</span>
+                <span class="n">pl_module</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                <span class="n">images</span> <span class="o">=</span> <span class="n">pl_module</span><span class="o">.</span><span class="n">log_images</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">log_images_kwargs</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+                <span class="n">N</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_images</span><span class="p">)</span>
+                <span class="n">images</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="n">k</span><span class="p">][:</span><span class="n">N</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+                    <span class="n">images</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clamp</span><span class="p">:</span>
+                        <span class="n">images</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_local</span><span class="p">(</span><span class="n">pl_module</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">split</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span>
+                           <span class="n">pl_module</span><span class="o">.</span><span class="n">global_step</span><span class="p">,</span> <span class="n">pl_module</span><span class="o">.</span><span class="n">current_epoch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">)</span>
+
+            <span class="n">logger_log_images</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger_log_images</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">logger_log_images</span><span class="p">(</span><span class="n">pl_module</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">pl_module</span><span class="o">.</span><span class="n">global_step</span><span class="p">,</span> <span class="n">split</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">is_train</span><span class="p">:</span>
+                <span class="n">pl_module</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">check_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">check_idx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">check_idx</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_freq</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">check_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_steps</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="n">check_idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_first_step</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_steps</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="k">pass</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">on_train_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pl_module</span><span class="o">.</span><span class="n">global_step</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_first_step</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_img</span><span class="p">(</span><span class="n">pl_module</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">on_validation_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span> <span class="ow">and</span> <span class="n">pl_module</span><span class="o">.</span><span class="n">global_step</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_img</span><span class="p">(</span><span class="n">pl_module</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;val&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">pl_module</span><span class="p">,</span> <span class="s1">&#39;calibrate_grad_norm&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pl_module</span><span class="o">.</span><span class="n">calibrate_grad_norm</span> <span class="ow">and</span> <span class="n">batch_idx</span> <span class="o">%</span> <span class="mi">25</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">batch_idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_gradients</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">,</span> <span class="n">batch_idx</span><span class="o">=</span><span class="n">batch_idx</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">CUDACallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+    <span class="c1"># see https://github.com/SeanNaren/minGPT/blob/master/mingpt/callback.py</span>
+    <span class="k">def</span> <span class="nf">on_train_epoch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">):</span>
+        <span class="c1"># Reset the memory use counter</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">reset_peak_memory_stats</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">root_gpu</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">root_gpu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_train_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">):</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">root_gpu</span><span class="p">)</span>
+        <span class="n">max_memory</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">max_memory_allocated</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">root_gpu</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">20</span>
+        <span class="n">epoch_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">max_memory</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">training_type_plugin</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">max_memory</span><span class="p">)</span>
+            <span class="n">epoch_time</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">training_type_plugin</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">epoch_time</span><span class="p">)</span>
+
+            <span class="n">rank_zero_info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Epoch time: </span><span class="si">{</span><span class="n">epoch_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+            <span class="n">rank_zero_info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Peak memory </span><span class="si">{</span><span class="n">max_memory</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">MiB&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">ModeSwapCallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">swap_step</span><span class="o">=</span><span class="mi">2000</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_frozen</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">swap_step</span> <span class="o">=</span> <span class="n">swap_step</span>
+
+    <span class="k">def</span> <span class="nf">on_train_epoch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_step</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">swap_step</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_frozen</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_frozen</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">trainer</span><span class="o">.</span><span class="n">optimizers</span> <span class="o">=</span> <span class="p">[</span><span class="n">pl_module</span><span class="o">.</span><span class="n">configure_opt_embedding</span><span class="p">()]</span>
+
+        <span class="k">if</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_step</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">swap_step</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_frozen</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_frozen</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">trainer</span><span class="o">.</span><span class="n">optimizers</span> <span class="o">=</span> <span class="p">[</span><span class="n">pl_module</span><span class="o">.</span><span class="n">configure_opt_model</span><span class="p">()]</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># custom parser to specify config files, train, test and debug mode,</span>
+    <span class="c1"># postfix, resume.</span>
+    <span class="c1"># `--key value` arguments are interpreted as arguments to the trainer.</span>
+    <span class="c1"># `nested.key=value` arguments are interpreted as config parameters.</span>
+    <span class="c1"># configs are merged from left-to-right followed by command line parameters.</span>
+
+    <span class="c1"># model:</span>
+    <span class="c1">#   base_learning_rate: float</span>
+    <span class="c1">#   target: path to lightning module</span>
+    <span class="c1">#   params:</span>
+    <span class="c1">#       key: value</span>
+    <span class="c1"># data:</span>
+    <span class="c1">#   target: main.DataModuleFromConfig</span>
+    <span class="c1">#   params:</span>
+    <span class="c1">#      batch_size: int</span>
+    <span class="c1">#      wrap: bool</span>
+    <span class="c1">#      train:</span>
+    <span class="c1">#          target: path to train dataset</span>
+    <span class="c1">#          params:</span>
+    <span class="c1">#              key: value</span>
+    <span class="c1">#      validation:</span>
+    <span class="c1">#          target: path to validation dataset</span>
+    <span class="c1">#          params:</span>
+    <span class="c1">#              key: value</span>
+    <span class="c1">#      test:</span>
+    <span class="c1">#          target: path to test dataset</span>
+    <span class="c1">#          params:</span>
+    <span class="c1">#              key: value</span>
+    <span class="c1"># lightning: (optional, has sane defaults and can be specified on cmdline)</span>
+    <span class="c1">#   trainer:</span>
+    <span class="c1">#       additional arguments to trainer</span>
+    <span class="c1">#   logger:</span>
+    <span class="c1">#       logger to instantiate</span>
+    <span class="c1">#   modelcheckpoint:</span>
+    <span class="c1">#       modelcheckpoint to instantiate</span>
+    <span class="c1">#   callbacks:</span>
+    <span class="c1">#       callback1:</span>
+    <span class="c1">#           target: importpath</span>
+    <span class="c1">#           params:</span>
+    <span class="c1">#               key: value</span>
+
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H-%M-%S&quot;</span><span class="p">)</span>
+
+    <span class="c1"># add cwd for convenience and to make classes in this file available when</span>
+    <span class="c1"># running as `python main.py`</span>
+    <span class="c1"># (in particular `main.DataModuleFromConfig`)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">get_parser</span><span class="p">()</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">Trainer</span><span class="o">.</span><span class="n">add_argparse_args</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+
+    <span class="n">opt</span><span class="p">,</span> <span class="n">unknown</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">name</span> <span class="ow">and</span> <span class="n">opt</span><span class="o">.</span><span class="n">resume</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;-n/--name and -r/--resume cannot be specified both.&quot;</span>
+            <span class="s2">&quot;If you want to resume training in a new log folder, &quot;</span>
+            <span class="s2">&quot;use -n/--name in combination with --resume_from_checkpoint&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">resume</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">resume</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot find </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">resume</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">resume</span><span class="p">):</span>
+            <span class="n">paths</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">resume</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+            <span class="c1"># idx = len(paths)-paths[::-1].index(&quot;logs&quot;)+1</span>
+            <span class="c1"># logdir = &quot;/&quot;.join(paths[:idx])</span>
+            <span class="n">logdir</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paths</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">ckpt</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">resume</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">resume</span><span class="p">),</span> <span class="n">opt</span><span class="o">.</span><span class="n">resume</span>
+            <span class="n">logdir</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">resume</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+            <span class="n">ckpt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">logdir</span><span class="p">,</span> <span class="s2">&quot;checkpoints&quot;</span><span class="p">,</span> <span class="s2">&quot;last.ckpt&quot;</span><span class="p">)</span>
+
+        <span class="n">opt</span><span class="o">.</span><span class="n">resume_from_checkpoint</span> <span class="o">=</span> <span class="n">ckpt</span>
+        <span class="n">base_configs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">logdir</span><span class="p">,</span> <span class="s2">&quot;configs/*.yaml&quot;</span><span class="p">)))</span>
+        <span class="n">opt</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">base_configs</span> <span class="o">+</span> <span class="n">opt</span><span class="o">.</span><span class="n">base</span>
+        <span class="n">_tmp</span> <span class="o">=</span> <span class="n">logdir</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="n">nowname</span> <span class="o">=</span> <span class="n">_tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">opt</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">elif</span> <span class="n">opt</span><span class="o">.</span><span class="n">base</span><span class="p">:</span>
+            <span class="n">cfg_fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">base</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">cfg_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">cfg_fname</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">cfg_name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">datadir_in_name</span><span class="p">:</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">data_root</span><span class="p">))</span> <span class="o">+</span> <span class="n">now</span>
+
+        <span class="n">nowname</span> <span class="o">=</span> <span class="n">now</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="n">opt</span><span class="o">.</span><span class="n">postfix</span>
+        <span class="n">logdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">logdir</span><span class="p">,</span> <span class="n">nowname</span><span class="p">)</span>
+
+    <span class="n">ckptdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">logdir</span><span class="p">,</span> <span class="s2">&quot;checkpoints&quot;</span><span class="p">)</span>
+    <span class="n">cfgdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">logdir</span><span class="p">,</span> <span class="s2">&quot;configs&quot;</span><span class="p">)</span>
+    <span class="n">seed_everything</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># init and save configs</span>
+        <span class="n">configs</span> <span class="o">=</span> <span class="p">[</span><span class="n">OmegaConf</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span> <span class="k">for</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="n">opt</span><span class="o">.</span><span class="n">base</span><span class="p">]</span>
+        <span class="n">cli</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">from_dotlist</span><span class="p">(</span><span class="n">unknown</span><span class="p">)</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="o">*</span><span class="n">configs</span><span class="p">,</span> <span class="n">cli</span><span class="p">)</span>
+        <span class="n">lightning_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;lightning&quot;</span><span class="p">,</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">create</span><span class="p">())</span>
+        <span class="c1"># merge trainer cli with config</span>
+        <span class="n">trainer_config</span> <span class="o">=</span> <span class="n">lightning_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;trainer&quot;</span><span class="p">,</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">create</span><span class="p">())</span>
+        <span class="c1"># default to ddp</span>
+        <span class="n">trainer_config</span><span class="p">[</span><span class="s2">&quot;accelerator&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;ddp&quot;</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">nondefault_trainer_args</span><span class="p">(</span><span class="n">opt</span><span class="p">):</span>
+            <span class="n">trainer_config</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;gpus&quot;</span> <span class="ow">in</span> <span class="n">trainer_config</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">trainer_config</span><span class="p">[</span><span class="s2">&quot;accelerator&quot;</span><span class="p">]</span>
+            <span class="n">cpu</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">gpuinfo</span> <span class="o">=</span> <span class="n">trainer_config</span><span class="p">[</span><span class="s2">&quot;gpus&quot;</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running on GPUs </span><span class="si">{</span><span class="n">gpuinfo</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">cpu</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">trainer_opt</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">(</span><span class="o">**</span><span class="n">trainer_config</span><span class="p">)</span>
+        <span class="n">lightning_config</span><span class="o">.</span><span class="n">trainer</span> <span class="o">=</span> <span class="n">trainer_config</span>
+
+        <span class="c1"># model</span>
+
+        <span class="c1"># config.model.params.personalization_config.params.init_word = opt.init_word</span>
+        <span class="c1"># config.model.params.personalization_config.params.embedding_manager_ckpt = opt.embedding_manager_ckpt</span>
+        <span class="c1"># config.model.params.personalization_config.params.placeholder_tokens = opt.placeholder_tokens</span>
+
+        <span class="c1"># if opt.init_word:</span>
+        <span class="c1">#     config.model.params.personalization_config.params.initializer_words[0] = opt.init_word</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">placeholder_token</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">class_word</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">reg</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">placeholder_token</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">class_word</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">validation</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">placeholder_token</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">class_word</span>
+
+        <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">actual_resume</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">load_model_from_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">opt</span><span class="o">.</span><span class="n">actual_resume</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">instantiate_from_config</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+
+        <span class="c1"># trainer and callbacks</span>
+        <span class="n">trainer_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="c1"># default logger configs</span>
+        <span class="n">default_logger_cfgs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;wandb&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;pytorch_lightning.loggers.WandbLogger&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">nowname</span><span class="p">,</span>
+                    <span class="s2">&quot;save_dir&quot;</span><span class="p">:</span> <span class="n">logdir</span><span class="p">,</span>
+                    <span class="s2">&quot;offline&quot;</span><span class="p">:</span> <span class="n">opt</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">nowname</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;testtube&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;pytorch_lightning.loggers.TestTubeLogger&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;testtube&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;save_dir&quot;</span><span class="p">:</span> <span class="n">logdir</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="n">default_logger_cfg</span> <span class="o">=</span> <span class="n">default_logger_cfgs</span><span class="p">[</span><span class="s2">&quot;testtube&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;logger&quot;</span> <span class="ow">in</span> <span class="n">lightning_config</span><span class="p">:</span>
+            <span class="n">logger_cfg</span> <span class="o">=</span> <span class="n">lightning_config</span><span class="o">.</span><span class="n">logger</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger_cfg</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+        <span class="n">logger_cfg</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">default_logger_cfg</span><span class="p">,</span> <span class="n">logger_cfg</span><span class="p">)</span>
+        <span class="n">trainer_kwargs</span><span class="p">[</span><span class="s2">&quot;logger&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instantiate_from_config</span><span class="p">(</span><span class="n">logger_cfg</span><span class="p">)</span>
+
+        <span class="c1"># modelcheckpoint - use TrainResult/EvalResult(checkpoint_on=metric) to</span>
+        <span class="c1"># specify which metric is used to determine best models</span>
+        <span class="n">default_modelckpt_cfg</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;pytorch_lightning.callbacks.ModelCheckpoint&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;dirpath&quot;</span><span class="p">:</span> <span class="n">ckptdir</span><span class="p">,</span>
+                <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{epoch:06}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;save_last&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;monitor&quot;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monitoring </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">monitor</span><span class="si">}</span><span class="s2"> as checkpoint metric.&quot;</span><span class="p">)</span>
+            <span class="n">default_modelckpt_cfg</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">][</span><span class="s2">&quot;monitor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">monitor</span>
+            <span class="n">default_modelckpt_cfg</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">][</span><span class="s2">&quot;save_top_k&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="s2">&quot;modelcheckpoint&quot;</span> <span class="ow">in</span> <span class="n">lightning_config</span><span class="p">:</span>
+            <span class="n">modelckpt_cfg</span> <span class="o">=</span> <span class="n">lightning_config</span><span class="o">.</span><span class="n">modelcheckpoint</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">modelckpt_cfg</span> <span class="o">=</span>  <span class="n">OmegaConf</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+        <span class="n">modelckpt_cfg</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">default_modelckpt_cfg</span><span class="p">,</span> <span class="n">modelckpt_cfg</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Merged modelckpt-cfg: </span><span class="se">\n</span><span class="si">{</span><span class="n">modelckpt_cfg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;1.4.0&#39;</span><span class="p">):</span>
+            <span class="n">trainer_kwargs</span><span class="p">[</span><span class="s2">&quot;checkpoint_callback&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instantiate_from_config</span><span class="p">(</span><span class="n">modelckpt_cfg</span><span class="p">)</span>
+
+        <span class="c1"># add callback which sets up log directory</span>
+        <span class="n">default_callbacks_cfg</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;setup_callback&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;main.SetupCallback&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;resume&quot;</span><span class="p">:</span> <span class="n">opt</span><span class="o">.</span><span class="n">resume</span><span class="p">,</span>
+                    <span class="s2">&quot;now&quot;</span><span class="p">:</span> <span class="n">now</span><span class="p">,</span>
+                    <span class="s2">&quot;logdir&quot;</span><span class="p">:</span> <span class="n">logdir</span><span class="p">,</span>
+                    <span class="s2">&quot;ckptdir&quot;</span><span class="p">:</span> <span class="n">ckptdir</span><span class="p">,</span>
+                    <span class="s2">&quot;cfgdir&quot;</span><span class="p">:</span> <span class="n">cfgdir</span><span class="p">,</span>
+                    <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
+                    <span class="s2">&quot;lightning_config&quot;</span><span class="p">:</span> <span class="n">lightning_config</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;image_logger&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;main.ImageLogger&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;batch_frequency&quot;</span><span class="p">:</span> <span class="mi">750</span><span class="p">,</span>
+                    <span class="s2">&quot;max_images&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                    <span class="s2">&quot;clamp&quot;</span><span class="p">:</span> <span class="kc">True</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;learning_rate_logger&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;main.LearningRateMonitor&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;logging_interval&quot;</span><span class="p">:</span> <span class="s2">&quot;step&quot;</span><span class="p">,</span>
+                    <span class="c1"># &quot;log_momentum&quot;: True</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;cuda_callback&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;main.CUDACallback&quot;</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;1.4.0&#39;</span><span class="p">):</span>
+            <span class="n">default_callbacks_cfg</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;checkpoint_callback&#39;</span><span class="p">:</span> <span class="n">modelckpt_cfg</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="s2">&quot;callbacks&quot;</span> <span class="ow">in</span> <span class="n">lightning_config</span><span class="p">:</span>
+            <span class="n">callbacks_cfg</span> <span class="o">=</span> <span class="n">lightning_config</span><span class="o">.</span><span class="n">callbacks</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">callbacks_cfg</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="s1">&#39;metrics_over_trainsteps_checkpoint&#39;</span> <span class="ow">in</span> <span class="n">callbacks_cfg</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s1">&#39;Caution: Saving checkpoints every n train steps without deleting. This might require some free space.&#39;</span><span class="p">)</span>
+            <span class="n">default_metrics_over_trainsteps_ckpt_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;metrics_over_trainsteps_checkpoint&#39;</span><span class="p">:</span>
+                    <span class="p">{</span><span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s1">&#39;pytorch_lightning.callbacks.ModelCheckpoint&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span>
+                         <span class="s2">&quot;dirpath&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ckptdir</span><span class="p">,</span> <span class="s1">&#39;trainstep_checkpoints&#39;</span><span class="p">),</span>
+                         <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{epoch:06}</span><span class="s2">-</span><span class="si">{step:09}</span><span class="s2">&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                         <span class="s1">&#39;save_top_k&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                         <span class="s1">&#39;every_n_train_steps&#39;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+                         <span class="s1">&#39;save_weights_only&#39;</span><span class="p">:</span> <span class="kc">True</span>
+                     <span class="p">}</span>
+                     <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">default_callbacks_cfg</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">default_metrics_over_trainsteps_ckpt_dict</span><span class="p">)</span>
+
+        <span class="n">callbacks_cfg</span> <span class="o">=</span> <span class="n">OmegaConf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">default_callbacks_cfg</span><span class="p">,</span> <span class="n">callbacks_cfg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;ignore_keys_callback&#39;</span> <span class="ow">in</span> <span class="n">callbacks_cfg</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">trainer_opt</span><span class="p">,</span> <span class="s1">&#39;resume_from_checkpoint&#39;</span><span class="p">):</span>
+            <span class="n">callbacks_cfg</span><span class="o">.</span><span class="n">ignore_keys_callback</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;ckpt_path&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trainer_opt</span><span class="o">.</span><span class="n">resume_from_checkpoint</span>
+        <span class="k">elif</span> <span class="s1">&#39;ignore_keys_callback&#39;</span> <span class="ow">in</span> <span class="n">callbacks_cfg</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">callbacks_cfg</span><span class="p">[</span><span class="s1">&#39;ignore_keys_callback&#39;</span><span class="p">]</span>
+
+        <span class="n">trainer_kwargs</span><span class="p">[</span><span class="s2">&quot;callbacks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">instantiate_from_config</span><span class="p">(</span><span class="n">callbacks_cfg</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">callbacks_cfg</span><span class="p">]</span>
+        <span class="n">trainer_kwargs</span><span class="p">[</span><span class="s2">&quot;max_steps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trainer_opt</span><span class="o">.</span><span class="n">max_steps</span>
+
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="o">.</span><span class="n">from_argparse_args</span><span class="p">(</span><span class="n">trainer_opt</span><span class="p">,</span> <span class="o">**</span><span class="n">trainer_kwargs</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">logdir</span> <span class="o">=</span> <span class="n">logdir</span>  <span class="c1">###</span>
+
+        <span class="c1"># data</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">data_root</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">data_root</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">reg</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">data_root</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">reg_data_root</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">validation</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">data_root</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">data_root</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">instantiate_from_config</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">instantiate_from_config</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># NOTE according to https://pytorch-lightning.readthedocs.io/en/latest/datamodules.html</span>
+        <span class="c1"># calling these ourselves should not be necessary but it is.</span>
+        <span class="c1"># lightning still takes care of proper multiprocessing though</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">prepare_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;#### Data #####&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">datasets</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># configure learning rate</span>
+        <span class="n">bs</span><span class="p">,</span> <span class="n">base_lr</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">base_learning_rate</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cpu</span><span class="p">:</span>
+            <span class="n">ngpu</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lightning_config</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">gpus</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ngpu</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="s1">&#39;accumulate_grad_batches&#39;</span> <span class="ow">in</span> <span class="n">lightning_config</span><span class="o">.</span><span class="n">trainer</span><span class="p">:</span>
+            <span class="n">accumulate_grad_batches</span> <span class="o">=</span> <span class="n">lightning_config</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">accumulate_grad_batches</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">accumulate_grad_batches</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;accumulate_grad_batches = </span><span class="si">{</span><span class="n">accumulate_grad_batches</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">lightning_config</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">accumulate_grad_batches</span> <span class="o">=</span> <span class="n">accumulate_grad_batches</span>
+        <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">scale_lr</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">=</span> <span class="n">accumulate_grad_batches</span> <span class="o">*</span> <span class="n">ngpu</span> <span class="o">*</span> <span class="n">bs</span> <span class="o">*</span> <span class="n">base_lr</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Setting learning rate to </span><span class="si">{:.2e}</span><span class="s2"> = </span><span class="si">{}</span><span class="s2"> (accumulate_grad_batches) * </span><span class="si">{}</span><span class="s2"> (num_gpus) * </span><span class="si">{}</span><span class="s2"> (batchsize) * </span><span class="si">{:.2e}</span><span class="s2"> (base_lr)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">model</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">accumulate_grad_batches</span><span class="p">,</span> <span class="n">ngpu</span><span class="p">,</span> <span class="n">bs</span><span class="p">,</span> <span class="n">base_lr</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">=</span> <span class="n">base_lr</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;++++ NOT USING LR SCALING ++++&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting learning rate to </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">learning_rate</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+        <span class="c1"># allow checkpointing via USR1</span>
+        <span class="k">def</span> <span class="nf">melk</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="c1"># run all checkpoint hooks</span>
+            <span class="k">if</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Summoning checkpoint.&quot;</span><span class="p">)</span>
+                <span class="n">ckpt_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ckptdir</span><span class="p">,</span> <span class="s2">&quot;last.ckpt&quot;</span><span class="p">)</span>
+                <span class="n">trainer</span><span class="o">.</span><span class="n">save_checkpoint</span><span class="p">(</span><span class="n">ckpt_path</span><span class="p">)</span>
+
+
+        <span class="k">def</span> <span class="nf">divein</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">pudb</span><span class="p">;</span>
+                <span class="n">pudb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+
+
+        <span class="kn">import</span> <span class="nn">signal</span>
+
+        <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGUSR1</span><span class="p">,</span> <span class="n">melk</span><span class="p">)</span>
+        <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGUSR2</span><span class="p">,</span> <span class="n">divein</span><span class="p">)</span>
+
+        <span class="c1"># run</span>
+        <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">train</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">melk</span><span class="p">()</span>
+                <span class="k">raise</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">opt</span><span class="o">.</span><span class="n">no_test</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">trainer</span><span class="o">.</span><span class="n">interrupted</span><span class="p">:</span>
+            <span class="n">trainer</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">debug</span> <span class="ow">and</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">pudb</span> <span class="k">as</span> <span class="nn">debugger</span>
+            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">pdb</span> <span class="k">as</span> <span class="nn">debugger</span>
+            <span class="n">debugger</span><span class="o">.</span><span class="n">post_mortem</span><span class="p">()</span>
+        <span class="k">raise</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="c1"># move newly created debug project to debug_runs</span>
+        <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">debug</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">opt</span><span class="o">.</span><span class="n">resume</span> <span class="ow">and</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dst</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">logdir</span><span class="p">)</span>
+            <span class="n">dst</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="s2">&quot;debug_runs&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">dst</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">logdir</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</code></pre></div>
+<h2 id="_4">复现结果</h2>
+<h3 id="_5">小羊</h3>
+<p>小羊是一只可爱的萨摩耶犬, 我们希望利用模型和dreambooth的方法看看能否复现小羊的样子。</p>
+<h4 id="_6">原图</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="1" src="../dream_booth.assets/1.png" /></td>
+<td><img alt="extra" src="../dream_booth.assets/extra.png" /></td>
+<td><img alt="4" src="../dream_booth.assets/4.png" /></td>
+</tr>
+<tr>
+<td><img alt="2" src="../dream_booth.assets/2.png" /></td>
+<td><img alt="3" src="../dream_booth.assets/3.png" /></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_7">生成</h4>
+<p><img alt="photo-of-a-sks-dog-0000" src="../dream_booth.assets/photo-of-a-sks-dog-0000.jpg" /> </p>
+<h4 id="finetunedog">finetune前后dog对比</h4>
+<div class="highlight"><pre><span></span><code>python scripts/stable_txt2img.py <span class="se">\</span>
+--ddim_eta <span class="m">0</span>.0 --n_samples <span class="m">2</span> --n_iter <span class="m">100</span> <span class="se">\</span>
+--scale <span class="m">10</span>.0 --ddim_steps <span class="m">50</span>  <span class="se">\</span>
+--ckpt /mfs/xiangchendong19/stable-diffusion-ckpt/xiaoyang.ckpt <span class="se">\</span>
+--prompt <span class="s2">&quot;a photo of a dog&quot;</span> <span class="se">\</span>
+--outdir  /home/xiangchendong19/Dreambooth-Stable-Diffusion/data/xiaoyang/after_tune_dog
+<span class="c1"># default seed 42</span>
+</code></pre></div>
+<p>选择0, 5, 9, 10 这四张图片</p>
+<p><strong>前</strong></p>
+<table>
+<thead>
+<tr>
+<th><img alt="00000" src="../dream_booth.assets/00000-7273933.jpg" /></th>
+<th><img alt="00015" src="../dream_booth.assets/00015.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="00019" src="../dream_booth.assets/00019.jpg" /></td>
+<td><img alt="00020" src="../dream_booth.assets/00020.jpg" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>后</strong></p>
+<table>
+<thead>
+<tr>
+<th><img alt="00000" src="../dream_booth.assets/00000-7274117.jpg" /></th>
+<th><img alt="00005" src="../dream_booth.assets/00005-7274124.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="00009" src="../dream_booth.assets/00009.jpg" /></td>
+<td><img alt="00010" src="../dream_booth.assets/00010.jpg" /></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_8">生成其他内容</h4>
+<div class="highlight"><pre><span></span><code>python scripts/stable_txt2img.py <span class="se">\</span>
+--ddim_eta <span class="m">0</span>.0 --n_samples <span class="m">2</span> --n_iter <span class="m">2</span> <span class="se">\</span>
+--scale <span class="m">10</span>.0 --ddim_steps <span class="m">50</span>  <span class="se">\</span>
+--ckpt /mfs/xiangchendong19/stable-diffusion-ckpt/xiaoyang.ckpt <span class="se">\</span>
+--prompt <span class="s2">&quot;a photo of a cat sitting on a green car&quot;</span> <span class="se">\</span>
+--outdir  /home/xiangchendong19/Dreambooth-Stable-Diffusion/data/xiaoyang/others
+</code></pre></div>
+<h4 id="after-finetune">after finetune</h4>
+<p>“a photo of a cat sitting on a green car”, seed = 42</p>
+<p><img alt="image-20221101184022889" src="../dream_booth.assets/image-20221101184022889.png" /></p>
+<h4 id="before-finetune">before finetune</h4>
+<p>“a photo of a cat sitting on a green car”, seed = 42</p>
+<p><img alt="image-20221101184110791" src="../dream_booth.assets/image-20221101184110791.png" /></p>
+<h3 id="magic-cube">magic cube</h3>
+<h4 id="_9">原图</h4>
+<table>
+<thead>
+<tr>
+<th><img alt="IMG_1960" src="../dream_booth.assets/IMG_1960.jpg" /></th>
+<th><img alt="IMG_1961" src="../dream_booth.assets/IMG_1961.jpg" /></th>
+<th><img alt="IMG_1962" src="../dream_booth.assets/IMG_1962.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="IMG_1963" src="../dream_booth.assets/IMG_1963.jpg" /></td>
+<td><img alt="IMG_1964" src="../dream_booth.assets/IMG_1964.jpg" /></td>
+<td><img alt="IMG_1965" src="../dream_booth.assets/IMG_1965.jpg" /></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_10">生成</h4>
+<p><img alt="image-20221101190941382" src="../dream_booth.assets/image-20221101190941382.png" /></p>
+<h2 id="_11">结论</h2>
+<ol>
+<li>进行finetune能够使得模型捕捉到我们提供的物体的特征</li>
+<li>进行finetune对于原来的生成效果有一定的折扣。</li>
+<li>finetune比较快, 800步迭代</li>
+<li>每个物体都需要12G的ckpt</li>
+</ol>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../diffedit/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Diffedit" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Diffedit
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../finetune/" class="md-footer__link md-footer__link--next" aria-label="Next: 高效参数微调" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              高效参数微调
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.37e9125f.min.js"></script>
+      
+    
+  </body>
+</html>
