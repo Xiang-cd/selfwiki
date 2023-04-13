@@ -41,12 +41,14 @@ mkdir wdt_root && cd wdt_root
 git clone https://github.com/facebook/folly.git
 git clone git@github.com:facebook/wdt.git
 sudo apt-get install libgoogle-glog-dev libboost-system-dev \
-libdouble-conversion-dev libjemalloc-dev libfmt-dev libgtest-dev 
+libdouble-conversion-dev libjemalloc-dev libfmt-dev libgtest-dev  libboost-filesystem-dev  libssl-dev
 # 如果找不到各个库的源代码位置，就需要手动在cmake.txt 设置一下，或者百度后设置cmake的宏
-makdir wdt-linux && cd wdt-linux
+mkdir wdt-linux && cd wdt-linux
 # 可能还需要注意glog 和 gflag的安装, 详见参考
+
 # 中途编译出错不影响wdt应用程序的编译成功, 很多是一些测试程序编译错误了
-cmake ../wdt
+# 注意最好使用gcc-10以后的编译器
+cmake ../wdt 
 ```
 
 
@@ -60,5 +62,13 @@ cmake ../wdt
 wdt -directory ~/Download -start_port 22356 --encryption_type=none --transfer_id=1234
 # 发送方
  wdt -directory ./ --ipv4 -destination=接收方的ipv4地址 --encryption_type=none --transfer_id=1234
+```
+
+
+
+
+
+```shell
+wdt -directory ./rec/ -hostname 192.168.101.127 -start_port 22356 -num_ports=4 -transfer_id=1234 -encryption_type=none -progress_report_interval_millis=5000 | ssh xcd /home/xcd/wdt_root/wdt/build/wdt_build/_bin/wdt/wdt -directory /DATA4T/civitai/meta -destination=192.168.101.127 -start_port 22356 -num_ports=4 -transfer_id=1234 -encryption_type=none -progress_report_interval_millis=5000
 ```
 
